@@ -1,7 +1,10 @@
 package org.exmaple;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Unit3Main {
     public static void main(String[] args) {
@@ -30,7 +33,6 @@ public class Unit3Main {
                         int OnlyNumbers = Integer.parseInt(NumberOnlyString);
                         int sum=0;
                         while(OnlyNumbers != 0){
-                            //Суммирование цифр числа
                             sum += (OnlyNumbers % 10);
                             OnlyNumbers/=10;
                         }
@@ -43,23 +45,36 @@ public class Unit3Main {
                     break;
 
                 case 2:
-                    TreeMap<Character, Integer> LettersList = new TreeMap<>();
                     Scanner StrLetterScan = new Scanner(System.in);
+                    ArrayList<Character> arrLetters = new ArrayList<>();
                     System.out.print("Введите строку: ");
                     String strLet;
                     strLet=StrLetterScan.nextLine();
-                    String OnlyLetters = strLet.replaceAll("[^A-Za-zА-Яа-я]", "");
-                    int CountLetters = 0;
-                    for (int i = 0; i < OnlyLetters.length(); i++) {
-                        if (LettersList.containsKey(OnlyLetters.charAt(i))) {
-                            CountLetters = LettersList.get(OnlyLetters.charAt(i)) + 1;
-                            LettersList.put(OnlyLetters.charAt(i), CountLetters);
-                        } else {
-                            LettersList.put(OnlyLetters.charAt(i), 1);
-                        }
+                    Pattern pattern = Pattern.compile("[a-zA-Zа-яА-Яёїі]");
+                    Matcher matcher = pattern.matcher(strLet);
+                    while (matcher.find()){
+                        arrLetters.add(matcher.group().charAt(0));
                     }
-                    System.out.println(LettersList);
-                    System.out.print("\n");
+                    if (arrLetters.size() != 0) {
+                        Collections.sort(arrLetters);
+                        int CountLetters  = 1;
+                        char cur_letter = arrLetters.get(0);
+                        arrLetters.remove(0);
+                        System.out.println("Буквы в строке: ");
+                        for (char c: arrLetters){
+                            if (cur_letter == c)
+                                CountLetters  += 1;
+                            else {
+                                System.out.println(cur_letter + " - " + CountLetters );
+                                cur_letter = c;
+                                CountLetters  = 1;
+                            }
+                        }
+                        System.out.println(cur_letter + " - " + CountLetters);
+                    }
+                    else {
+                        System.out.println("Нет ни одной буквы в строке");
+                    }
                     break;
 
                 case 3:
