@@ -1,10 +1,7 @@
 package org.exmaple;
 
-import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Unit3Main {
     public static void main(String[] args) {
@@ -22,71 +19,14 @@ public class Unit3Main {
                     NumberOfChoiceScan.close();
                     System.exit(0);
                     break;
-
                 case 1:
-                    Scanner StrScan = new Scanner(System.in);
-                    System.out.print("Введите строку: ");
-                    String str;
-                    str=StrScan.nextLine();
-                    String NumberOnlyString= str.replaceAll("[^0-9]", "");
-                    if(NumberOnlyString.length()!=0){
-                        int OnlyNumbers = Integer.parseInt(NumberOnlyString);
-                        int sum=0;
-                        while(OnlyNumbers != 0){
-                            sum += (OnlyNumbers % 10);
-                            OnlyNumbers/=10;
-                        }
-                        System.out.print("Сумма всех цифр в строке: ");
-                        System.out.println(sum);
-                        System.out.print("\n");
-                    }else{
-                        System.out.println("В строке не было чисел\n");
-                    }
+                    Task1.task1();
                     break;
-
                 case 2:
-                    Scanner StrLetterScan = new Scanner(System.in);
-                    ArrayList<Character> arrLetters = new ArrayList<>();
-                    System.out.print("Введите строку: ");
-                    String strLet;
-                    strLet=StrLetterScan.nextLine();
-                    Pattern pattern = Pattern.compile("[a-zA-Zа-яА-Яёїі]");
-                    Matcher matcher = pattern.matcher(strLet);
-                    while (matcher.find()){
-                        arrLetters.add(matcher.group().charAt(0));
-                    }
-                    if (arrLetters.size() != 0) {
-                        Collections.sort(arrLetters);
-                        int CountLetters  = 1;
-                        char cur_letter = arrLetters.get(0);
-                        arrLetters.remove(0);
-                        System.out.println("Буквы в строке: ");
-                        for (char c: arrLetters){
-                            if (cur_letter == c)
-                                CountLetters  += 1;
-                            else {
-                                System.out.println(cur_letter + " - " + CountLetters );
-                                cur_letter = c;
-                                CountLetters  = 1;
-                            }
-                        }
-                        System.out.println(cur_letter + " - " + CountLetters);
-                    }
-                    else {
-                        System.out.println("Нет ни одной буквы в строке");
-                    }
+                    Task2.task2();
                     break;
-
                 case 3:
-                    Scanner NumOfLessonScan = new Scanner(System.in);
-                    int NumberOfLesson, hour;
-                    int TimeOfLesson = 45, TimeOfBigBrake = 15, TimeOfSmallBrake = 5;
-                    System.out.print("Введите номер урока: ");
-                    NumberOfLesson = NumOfLessonScan.nextInt();
-                    hour = NumberOfLesson * TimeOfLesson + NumberOfLesson / 2 * TimeOfSmallBrake + (NumberOfLesson - 1) / 2 * TimeOfBigBrake;
-                    System.out.printf("Этот урок заканчивается в: ");
-                    System.out.printf("%s:%d", hour / 60 + 9, hour % 60);
-                    System.out.println("\n");
+                    Task3.task3();
                     break;
             }
         }
