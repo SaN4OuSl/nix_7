@@ -13,7 +13,7 @@ public class Task2 {
         System.out.print("Введите строку: ");
         String strLet;
         strLet=in.nextLine();
-        Pattern pattern = Pattern.compile("[a-zA-Zа-яА-Яёїі]");
+        Pattern pattern = Pattern.compile("[a-zA-Zа-яА-ЯёїієэЁЭЇІ]");
         Matcher matcher = pattern.matcher(strLet);
         while (matcher.find()){
             arrLetters.add(matcher.group().charAt(0));
