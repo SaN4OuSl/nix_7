@@ -3,8 +3,7 @@ package org.example.Chess;
 
 public class PrintFigure {
 
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001b[33m";
     public static final String ANSI_BOLD = "\033[1m";
     public static final String ANSI_RESET = "\u001B[0m";
     private AbstractFigure figure;
@@ -32,6 +31,29 @@ public class PrintFigure {
             if (figure.getColor() == AbstractFigure.FigureColor.White) {
                 switch (figure.getName()) {
                     case "Pawn":
+                        setPicture = ANSI_BOLD + "\u2659" + ANSI_RESET;
+                        break;
+                    case "Castle":
+                        setPicture = ANSI_BOLD + "\u2656" + ANSI_RESET;
+                        break;
+                    case "Horse":
+                        setPicture = ANSI_BOLD  + "\u2658" + ANSI_RESET;
+                        break;
+                    case "Bishop":
+                        setPicture = ANSI_BOLD  + "\u2657" + ANSI_RESET;
+                        break;
+                    case "Queen":
+                        setPicture = ANSI_BOLD  + "\u2655" + ANSI_RESET;
+                        break;
+                    case "King":
+                        setPicture = ANSI_BOLD  + "\u2654" + ANSI_RESET;
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + figure.getCharValue());
+                }
+            } else {
+                switch (figure.getName()) {
+                    case "Pawn":
                         setPicture = ANSI_BOLD + ANSI_RED + "\u265F" + ANSI_RESET;
                         break;
                     case "Castle":
@@ -48,29 +70,6 @@ public class PrintFigure {
                         break;
                     case "King":
                         setPicture = ANSI_BOLD + ANSI_RED + "\u265A" + ANSI_RESET;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + figure.getCharValue());
-                }
-            } else {
-                switch (figure.getName()) {
-                    case "Pawn":
-                        setPicture = ANSI_BOLD + ANSI_BLACK + "\u265F" + ANSI_RESET;
-                        break;
-                    case "Castle":
-                        setPicture = ANSI_BOLD + ANSI_BLACK + "\u265C" + ANSI_RESET;
-                        break;
-                    case "Horse":
-                        setPicture = ANSI_BOLD + ANSI_BLACK + "\u265E" + ANSI_RESET;
-                        break;
-                    case "Bishop":
-                        setPicture = ANSI_BOLD + ANSI_BLACK + "\u265D" + ANSI_RESET;
-                        break;
-                    case "Queen":
-                        setPicture = ANSI_BOLD + ANSI_BLACK + "\u265B" + ANSI_RESET;
-                        break;
-                    case "King":
-                        setPicture = ANSI_BOLD + ANSI_BLACK + "\u265A" + ANSI_RESET;
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + figure.getCharValue());
