@@ -19,7 +19,7 @@
     </properties>
 
     <build>
-        <finalName>Unit4App</finalName>
+        <finalName>Unit5App</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
