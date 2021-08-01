@@ -5,11 +5,20 @@ import org.example.Chess.FigurePosition;
 import org.example.ConsoleOutput.InputHandler;
 import org.example.ConsoleOutput.OutputBoard;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 public class Unit4Main {
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String args[]) {
+        try {
+            System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out), true, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            throw new InternalError("VM does not support mandatory encoding UTF-8");
+        }
         boolean isWhite = true;
         InputHandler handler = new InputHandler();
         Scanner in = new Scanner(System.in);
