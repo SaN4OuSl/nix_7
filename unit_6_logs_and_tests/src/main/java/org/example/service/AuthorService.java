@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.apache.log4j.Logger;
+import org.example.dao.AuthorDAO;
 import org.example.dao.impl.AuthorDAOImpl;
 import org.example.custom_util.DynamicArray;
 import org.example.entity.Author;
@@ -9,7 +10,7 @@ import org.example.exception.NonexistentIdException;
 
 public class AuthorService {
     private final Logger logger = Logger.getLogger(AuthorService.class);
-    private final AuthorDAOImpl DAO = new AuthorDAOImpl();
+    private final AuthorDAO DAO = new AuthorDAOImpl();
 
     public void createAuthor(Author author) {
         logger.info("Start of creating author");

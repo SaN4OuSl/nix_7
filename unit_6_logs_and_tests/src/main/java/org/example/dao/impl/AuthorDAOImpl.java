@@ -1,12 +1,13 @@
 package org.example.dao.impl;
 
 import org.example.custom_util.DynamicArray;
+import org.example.dao.AuthorDAO;
 import org.example.db.DBInMemory;
 import org.example.entity.Author;
 import org.example.exception.EmptyLibraryException;
 import org.example.exception.NonexistentIdException;
 
-public class AuthorDAOImpl {
+public class AuthorDAOImpl implements AuthorDAO {
     private final DBInMemory bd = DBInMemory.getInstance();
 
     public boolean createAuthor(Author author) {

@@ -1,14 +1,14 @@
 package org.example.dao.impl;
 
 import org.example.custom_util.DynamicArray;
+import org.example.dao.BookDAO;
 import org.example.db.DBInMemory;
 import org.example.entity.Book;
 import org.example.exception.EmptyLibraryException;
 import org.example.exception.NonexistentIdException;
 
-public class BookDAOImpl {
+public class BookDAOImpl implements BookDAO {
     private final DBInMemory bd = DBInMemory.getInstance();
-
 
     public boolean createBook(Book book) {
         return bd.createBook(book);

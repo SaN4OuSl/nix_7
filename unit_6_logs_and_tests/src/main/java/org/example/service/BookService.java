@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.apache.log4j.Logger;
+import org.example.dao.BookDAO;
 import org.example.dao.impl.BookDAOImpl;
 import org.example.custom_util.DynamicArray;
 import org.example.entity.Book;
@@ -10,7 +11,7 @@ import org.example.exception.NonexistentIdException;
 public class BookService {
 
     private final Logger logger = Logger.getLogger(BookService.class);
-    private final BookDAOImpl DAO = new BookDAOImpl();
+    private final BookDAO DAO = new BookDAOImpl();
 
     public void createBook(Book book) {
         logger.info("Start of creating book");
