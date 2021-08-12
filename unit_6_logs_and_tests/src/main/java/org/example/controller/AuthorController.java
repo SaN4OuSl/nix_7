@@ -20,7 +20,7 @@ public class AuthorController {
                     "2. Delete author by id\n" +
                     "3. All authors\n" +
                     "4. Update author\n" +
-                    "5. Author dy id\n" +
+                    "5. Author by id\n" +
                     "6. Author's books\n");
             String entered = in.nextLine();
             switch (entered) {

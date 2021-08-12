@@ -3,6 +3,7 @@ package org.example.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.example.custom_util.DynamicArray;
 
 @Getter
@@ -13,9 +14,21 @@ public class Book extends BaseEntity {
 
     @Override
     public String toString() {
+        String authorId = "[";
+        if (authors.isEmpty()) {
+            authorId = "Unknown";
+        } else {
+            for (int i = 0; i < authors.getSize(); i++) {
+                authorId += authors.get(i).toString() +", ";
+            }
+            authorId=StringUtils.chop(authorId);
+            authorId=StringUtils.chop(authorId);
+            authorId +="]";
+        }
         return "Book{" +
-                "id='" + id + '\'' +
-                "name='" + name +
+                "id='" + id +
+                "', name='" + name +
+                "', authors id=" + authorId +
                 '}';
     }
 
