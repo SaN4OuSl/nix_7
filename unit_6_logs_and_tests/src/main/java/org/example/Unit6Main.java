@@ -12,7 +12,7 @@ public class Unit6Main {
 
     public static void main(String[] args) {
         boolean endApp = false;
-        while(endApp == false) {
+        while (endApp == false) {
             System.out.println("------------Book library------------");
             System.out.println("What do you want? \n" +
                     "0. Exit\n" +
@@ -20,7 +20,7 @@ public class Unit6Main {
                     "2. Authors\n" +
                     "3. Make a association between a book and an author");
             String index = in.nextLine();
-            switch (index){
+            switch (index) {
                 case "0":
                     endApp = true;
                     break;

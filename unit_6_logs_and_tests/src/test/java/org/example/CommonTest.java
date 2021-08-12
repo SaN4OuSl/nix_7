@@ -17,9 +17,9 @@ public class CommonTest {
     private static int authorID;
 
     @BeforeAll
-    public static void init(){
+    public static void init() {
         int i = 0;
-        for( i = 0; i < 5; i++){
+        for (i = 0; i < 5; i++) {
             String name = "testName " + i;
             String firstName = "testFirstName " + i;
             String secondName = "testSecondName " + i;
@@ -36,13 +36,13 @@ public class CommonTest {
             AUTHOR_SERVICE.createAuthor(author);
             BOOK_SERVICE.createBook(book);
         }
-        Assert.assertTrue(AUTHOR_SERVICE.containsAuthor(i-1)&&BOOK_SERVICE.containsBook(i-1));
+        Assert.assertTrue(AUTHOR_SERVICE.containsAuthor(i - 1) && BOOK_SERVICE.containsBook(i - 1));
     }
 
     @Test
     @Order(1)
     public void associateAuthorsAndBooks() {
-        for(int i = 0; i < 5; ++i){
+        for (int i = 0; i < 5; ++i) {
             String name = "testName " + i;
             String firstName = "testFirstName " + i;
             String secondName = "testSecondName " + i;
@@ -64,7 +64,7 @@ public class CommonTest {
         DynamicArray<Integer> books = new DynamicArray<>();
         books.add(bookID - 1);
         books.add(bookID - 2);
-        AUTHOR_SERVICE.associateAuthorWithBooks(authorID,books);
+        AUTHOR_SERVICE.associateAuthorWithBooks(authorID, books);
         try {
             Assert.assertTrue(!AUTHOR_SERVICE.readAuthorById(authorID).getBooks().isEmpty());
         } catch (NonexistentIdException e) {
@@ -75,19 +75,19 @@ public class CommonTest {
 
     @Test
     @Order(2)
-    public void deleteAuthor(){
+    public void deleteAuthor() {
         Assert.assertTrue(AUTHOR_SERVICE.deleteAuthorById(authorID));
     }
 
     @Test
     @Order(3)
-    public void deleteBook(){
+    public void deleteBook() {
         Assert.assertTrue(BOOK_SERVICE.deleteBookById(bookID));
     }
 
     @Test
     @Order(4)
-    public void createAuthor(){
+    public void createAuthor() {
         ++authorID;
         Author author = new Author();
         author.setId(authorID);
@@ -100,7 +100,7 @@ public class CommonTest {
 
     @Test
     @Order(5)
-    public void createBook(){
+    public void createBook() {
         ++bookID;
         Book book = new Book();
         book.setId(bookID);
@@ -112,7 +112,7 @@ public class CommonTest {
 
     @Test
     @Order(6)
-    public void updateBook(){
+    public void updateBook() {
         Book book = new Book();
         book.setId(bookID);
         book.setName("testName updated");
@@ -126,7 +126,7 @@ public class CommonTest {
 
     @Test
     @Order(7)
-    public void updateAuthor(){
+    public void updateAuthor() {
         Author author = new Author();
         author.setId(authorID);
         author.setFirstName("testFirstName updated");
@@ -134,7 +134,7 @@ public class CommonTest {
         AUTHOR_SERVICE.updateAuthor(author);
         try {
             Assert.assertTrue(AUTHOR_SERVICE.readAuthorById(authorID).getFirstName().equals("testFirstName updated")
-                    &&AUTHOR_SERVICE.readAuthorById(authorID).getSecondName().equals("testSecondName updated"));
+                    && AUTHOR_SERVICE.readAuthorById(authorID).getSecondName().equals("testSecondName updated"));
         } catch (NonexistentIdException e) {
             e.printStackTrace();
         }

@@ -23,7 +23,7 @@ public class DBInMemory {
     }
 
     public boolean createAuthor(Author author) {
-        int id =  authors.getSize();
+        int id = authors.getSize();
         author.setAvailable(true);
         author.setId(id);
         return authors.add(author);
@@ -147,7 +147,6 @@ public class DBInMemory {
         }
     }
 
-    //TODO
     public void allBooksByAuthorId(int authorId) {
         boolean check = true;
         for (int i = 0; i < books.getSize(); i++) {
@@ -162,7 +161,6 @@ public class DBInMemory {
         if (check == true) System.out.println("Books aren't known");
     }
 
-    //TODO
     public void allAuthorsByBookId(int bookId) {
         boolean check = true;
         for (int i = 0; i < authors.getSize(); i++) {

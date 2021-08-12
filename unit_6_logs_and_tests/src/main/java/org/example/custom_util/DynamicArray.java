@@ -1,6 +1,5 @@
 package org.example.custom_util;
 
-//TODO
 public class DynamicArray<T> {
     private final int INIT_SIZE = 16;
     private final int CUT_RATE = 4;
@@ -24,15 +23,6 @@ public class DynamicArray<T> {
         } else {
             return false;
         }
-    }
-
-    public void remove(int index) {
-        for (int i = index; i < pointer; i++)
-            array[i] = array[i + 1];
-        array[pointer] = null;
-        pointer--;
-        if (array.length > INIT_SIZE && pointer < array.length / CUT_RATE)
-            resize(array.length / 2);
     }
 
     public int getSize() {
