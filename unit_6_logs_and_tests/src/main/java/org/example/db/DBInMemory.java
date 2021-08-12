@@ -23,16 +23,14 @@ public class DBInMemory {
     }
 
     public boolean createAuthor(Author author) {
-        int size = authors.getSize();
-        int id = size;
+        int id =  authors.getSize();
         author.setAvailable(true);
         author.setId(id);
         return authors.add(author);
     }
 
     public boolean createBook(Book book) {
-        int size = books.getSize();
-        int id = size;
+        int id = books.getSize();
         book.setAvailable(true);
         book.setId(id);
         return books.add(book);
@@ -116,30 +114,35 @@ public class DBInMemory {
         }
     }
 
-    //TODO
     public void associateAuthorWithBooks(int authorId, DynamicArray<Integer> booksId) {
         for (int i = 0; i < authors.getSize(); i++) {
             if (authors.get(i).getId() == authorId)
                 authors.get(i).setBooks(booksId);
         }
-        for (int j = 0; j < books.getSize(); j++) {
-            if (booksId.get(j) != null) {
-                if (booksId.get(j) == books.get(j).getId())
-                    books.get(j).getAuthors().add(authorId);
+        for (int i = 0; i < authors.getSize(); i++) {
+            for (int j = 0; j < booksId.getSize(); j++) {
+                if (booksId.get(j) == null) {
+                    if (booksId.get(j) == books.get(i).getId())
+                        books.get(i).getAuthors().add(authorId);
+                }
             }
         }
     }
 
-    //TODO
     public void associateBookWithAuthors(int bookId, DynamicArray<Integer> authorId) {
         for (int i = 0; i < books.getSize(); i++) {
-            if (books.get(i).getId() == bookId)
+            if (books.get(i).getId() == bookId) {
                 books.get(i).setAuthors(authorId);
+            }
+
         }
-        for (int j = 0; j < authors.getSize(); j++) {
-            if (authorId.get(j) != null) {
-                if (authorId.get(j) == authors.get(j).getId())
-                    authors.get(j).getBooks().add(bookId);
+        for (int i = 0; i < authors.getSize(); i++) {
+            for (int j = 0; j < authorId.getSize(); j++) {
+                if (authorId.get(j) != null) {
+                    if (authorId.get(j) == authors.get(i).getId()) {
+                        authors.get(i).getBooks().add(bookId);
+                    }
+                }
             }
         }
     }
@@ -148,12 +151,13 @@ public class DBInMemory {
     public void allBooksByAuthorId(int authorId) {
         boolean check = true;
         for (int i = 0; i < books.getSize(); i++) {
-            if (books.get(i).getAuthors().get(authorId) != null) {
-                if (books.get(i).getAuthors().get(authorId) == authorId) {
-                    System.out.println("Name: " + books.get(i).getName());
-                    check = false;
+            for (int j = 0; j < books.get(i).getAuthors().getSize(); j++)
+                if (books.get(i).getAuthors().get(j) != null) {
+                    if (books.get(i).getAuthors().get(j) == authorId) {
+                        System.out.println("Name: " + books.get(i).getName());
+                        check = false;
+                    }
                 }
-            }
         }
         if (check == true) System.out.println("Books aren't known");
     }
@@ -162,12 +166,13 @@ public class DBInMemory {
     public void allAuthorsByBookId(int bookId) {
         boolean check = true;
         for (int i = 0; i < authors.getSize(); i++) {
-            if (authors.get(i).getBooks().get(bookId) != null) {
-                if (authors.get(i).getBooks().get(bookId) == bookId) {
-                    System.out.println("FirstName: " + authors.get(i).getFirstName() + " SecondName: " + authors.get(i).getSecondName());
-                    check = false;
+            for (int j = 0; j < authors.get(i).getBooks().getSize(); j++)
+                if (authors.get(i).getBooks().get(j) != null) {
+                    if (authors.get(i).getBooks().get(j) == bookId) {
+                        System.out.println("FirstName: " + authors.get(i).getFirstName() + " SecondName: " + authors.get(i).getSecondName());
+                        check = false;
+                    }
                 }
-            }
         }
         if (check == true) System.out.println("Authors aren't known");
     }
