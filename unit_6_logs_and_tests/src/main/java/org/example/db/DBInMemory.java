@@ -119,11 +119,12 @@ public class DBInMemory {
             if (authors.get(i).getId() == authorId)
                 authors.get(i).setBooks(booksId);
         }
-        for (int i = 0; i < authors.getSize(); i++) {
+        for (int i = 0; i < books.getSize(); i++) {
             for (int j = 0; j < booksId.getSize(); j++) {
-                if (booksId.get(j) == null) {
-                    if (booksId.get(j) == books.get(i).getId())
+                if (booksId.get(j) != null) {
+                    if (booksId.get(j) == books.get(i).getId()) {
                         books.get(i).getAuthors().add(authorId);
+                    }
                 }
             }
         }
@@ -134,7 +135,6 @@ public class DBInMemory {
             if (books.get(i).getId() == bookId) {
                 books.get(i).setAuthors(authorId);
             }
-
         }
         for (int i = 0; i < authors.getSize(); i++) {
             for (int j = 0; j < authorId.getSize(); j++) {
