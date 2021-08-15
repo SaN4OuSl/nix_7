@@ -1,59 +1,62 @@
 package org.example.service;
 
-import org.apache.log4j.Logger;
 import org.example.dao.BookDAO;
 import org.example.dao.impl.BookDAOImpl;
 import org.example.custom_util.DynamicArray;
 import org.example.entity.Book;
 import org.example.exception.EmptyLibraryException;
 import org.example.exception.NonexistentIdException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BookService {
 
-    private final Logger logger = Logger.getLogger(BookService.class);
+    private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
+    private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
+    private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
     private final BookDAO DAO = new BookDAOImpl();
 
     public void createBook(Book book) {
-        logger.info("Start of creating book");
+        LOGGER_INFO.info("Start of creating book");
         DAO.createBook(book);
-        logger.info("Finish of creating book");
+        LOGGER_INFO.info("Finish of creating book");
     }
 
     public boolean updateBook(Book book) {
-        logger.info("Updating book");
+        LOGGER_INFO.info("Updating book");
         return DAO.updateBook(book);
     }
 
     public boolean deleteBookById(int id) {
-        logger.info("Deleting book");
+        LOGGER_INFO.info("Deleting book");
         return DAO.deleteBookById(id);
     }
 
     public void associateAuthorWithBooks(int bookId, DynamicArray<Integer> authors) {
-        logger.info("Start of associating book with authors");
+        LOGGER_INFO.info("Start of associating book with authors");
         DAO.associateBookWithAuthors(bookId, authors);
-        logger.info("Finish of associating book with authors");
+        LOGGER_INFO.info("Finish of associating book with authors");
     }
 
     public void allBooks() throws EmptyLibraryException {
-        logger.info("Printing all books");
+        LOGGER_INFO.info("Printing all books");
         DAO.allBooks();
-        logger.info("Finish of printing all books");
+        LOGGER_INFO.info("Finish of printing all books");
     }
 
     public Book readBookById(int id) throws NonexistentIdException {
-        logger.info("Reading book");
+        LOGGER_INFO.info("Reading book");
         return DAO.readBookById(id);
     }
 
     public void allAuthorsByBookId(int bookId) {
-        logger.info("Printing all book's authors");
+        LOGGER_INFO.info("Printing all book's authors");
         DAO.allAuthorsByBookId(bookId);
-        logger.info("Finish of printing all book's authors");
+        LOGGER_INFO.info("Finish of printing all book's authors");
     }
 
     public boolean containsBook(int id) {
-        logger.info("Checking book");
+        LOGGER_INFO.info("Checking book");
         return DAO.containsBook(id);
     }
 }
