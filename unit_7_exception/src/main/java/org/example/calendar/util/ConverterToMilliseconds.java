@@ -57,7 +57,15 @@ public class ConverterToMilliseconds {
         long monthMilliseconds = 0;
         numberOfMonth--;
         switch (numberOfMonth) {
+            case 0:
+                break;
             case 1:
+            case 2:
+                if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+                    monthMilliseconds += ConverterToMilliseconds.daysToMilli(29);
+                else monthMilliseconds += ConverterToMilliseconds.daysToMilli(28);
+                monthMilliseconds += monthsToMilliseconds(numberOfMonth, year);
+                break;
             case 3:
             case 5:
             case 6:
@@ -67,14 +75,6 @@ public class ConverterToMilliseconds {
             case 12:
                 monthMilliseconds += ConverterToMilliseconds.daysToMilli(31);
                 monthMilliseconds += monthsToMilliseconds(numberOfMonth, year);
-                break;
-            case 2:
-                if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
-                    monthMilliseconds += ConverterToMilliseconds.daysToMilli(29);
-                else monthMilliseconds += ConverterToMilliseconds.daysToMilli(28);
-                monthMilliseconds += monthsToMilliseconds(numberOfMonth, year);
-                break;
-            case 0:
                 break;
             default:
                 monthMilliseconds += ConverterToMilliseconds.daysToMilli(30);
