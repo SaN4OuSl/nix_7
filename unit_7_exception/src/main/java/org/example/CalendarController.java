@@ -95,7 +95,7 @@ public class CalendarController {
             }
             first = in.nextLine();
             isNew = false;
-        } while (!checkFormatOfDate(first));
+        } while (!checkFormatOfDate(first) || !checkFormatOfTime(first));
         MyDate firstDate = null;
         try {
             firstDate = VALIDATOR.stringToDate(first);
@@ -113,7 +113,7 @@ public class CalendarController {
             }
             second = in.nextLine();
             isNew1 = false;
-        } while (!checkFormatOfDate(second));
+        } while (!checkFormatOfDate(second) || !checkFormatOfTime(second));
         MyDate secondDate = null;
         try {
             secondDate = VALIDATOR.stringToDate(second);
@@ -138,7 +138,7 @@ public class CalendarController {
             }
             date = in.nextLine();
             isFirst = false;
-        } while (!checkFormatOfDate(date));
+        } while (!checkFormatOfDate(date) || !checkFormatOfTime(date));
         MyDate myDate = null;
         try {
             myDate = VALIDATOR.stringToDate(date);
@@ -149,18 +149,31 @@ public class CalendarController {
         System.out.print(ANSWER + "(add - (+)/subtract - (-))?");
         String operation = in.nextLine();
         long operand;
+        String choice;
         switch (operation) {
             case "+":
                 System.out.println(ANSWER + "to add?");
                 operand = selectMeasureAndConvertToMilliseconds();
                 myDate = CalculatorDates.addMillisecondsToDate(myDate, operand);
-                System.out.println("The result date: " + VALIDATOR.dateToString(myDate));
+                System.out.println("In what format you want see the date\n" +
+                        "1. Month 4 2021 00:00:00:000\n" +
+                        "2. 4 Month 2021 00:00:00:000\n" +
+                        "3. dd/mm/yy 00:00:00:000\n" +
+                        "4. mm/dd/yy 00:00:00:000");
+                choice = in.nextLine();
+                System.out.println("The result date: " + VALIDATOR.dateToString(myDate, choice));
                 break;
             case "-":
                 System.out.println(ANSWER + "to subtract?");
                 operand = selectMeasureAndConvertToMilliseconds();
                 myDate = CalculatorDates.subtractMillisecondsFromDate(myDate, operand);
-                System.out.println("The result date: " + VALIDATOR.dateToString(myDate));
+                System.out.println("In what format you want see the date\n" +
+                        "1. Month 4 2021 00:00:00:000\n" +
+                        "2. 4 Month 2021 00:00:00:000\n" +
+                        "3. dd/mm/yy 00:00:00:000\n" +
+                        "4. mm/dd/yy 00:00:00:000");
+                choice = in.nextLine();
+                System.out.println("The result date: " + VALIDATOR.dateToString(myDate, choice));
                 break;
             default:
                 System.out.println("Incorrect symbol");
@@ -191,7 +204,7 @@ public class CalendarController {
                         }
                         date = in.nextLine();
                         isFirst = false;
-                    } while (!checkFormatOfDate(date));
+                    } while (!checkFormatOfDate(date) || !checkFormatOfTime(date));
                     MyDate myDate = null;
                     try {
                         myDate = VALIDATOR.stringToDate(date);
@@ -210,9 +223,15 @@ public class CalendarController {
                 "Any another symbol to disable sorting");
         kindOfSort = in.nextLine();
         sortDates(dates, kindOfSort);
+        System.out.println("In what format you want see the date\n" +
+                "1. Month 4 2021 00:00:00:000\n" +
+                "2. 4 Month 2021 00:00:00:000\n" +
+                "3. dd/mm/yy 00:00:00:000\n" +
+                "4. mm/dd/yy 00:00:00:000");
+        String choice = in.nextLine();
         System.out.println("The dates:");
         for (MyDate o : dates) {
-            System.out.println(VALIDATOR.dateToString(o));
+            System.out.println(VALIDATOR.dateToString(o, choice));
         }
         System.out.println();
     }
@@ -412,5 +431,47 @@ public class CalendarController {
                 return false;
             }
         }
+    }
+    private static boolean checkFormatOfTime(String input){
+        boolean isTime=true;
+        if (input.contains("/") || input.contains("-")) {
+            String delimiter;
+            if (input.contains("/")) delimiter = "/";
+            else delimiter = "-";
+            String[] split = new String[4];
+
+            switch (delimiter) {
+                case "/":
+                    split = input.split("[/ ]");
+                    break;
+                case "-":
+                    split = input.split("[- ]");
+                    break;
+            }
+            if(split.length>3){
+                String[] splittime = split[3].split(":");
+                if(!splittime[0].equals("")) {
+                    if (Integer.parseInt(splittime[0]) > 23 || Integer.parseInt(splittime[0]) < 0) {
+                        isTime = false;
+                    }
+                }
+                if(splittime.length>1) {
+                    if (Integer.parseInt(splittime[1]) > 59 || Integer.parseInt(splittime[1]) < 0) {
+                        isTime = false;
+                    }
+                }
+                if(splittime.length>2) {
+                    if (Integer.parseInt(splittime[2]) > 59 || Integer.parseInt(splittime[2]) < 0) {
+                        isTime = false;
+                    }
+                }
+                if(splittime.length>3) {
+                    if (Integer.parseInt(splittime[3]) > 999 || Integer.parseInt(splittime[3]) < 0) {
+                        isTime = false;
+                    }
+                }
+            }
+        }
+        return isTime;
     }
 }

@@ -9,23 +9,73 @@ public class DateServiceAmerican {
 
     private final String EXCEPTION_MESSAGE = "data";
 
-    public String dateToString(MyDate date) {
+    public String dateToString(MyDate date, String choice) {
         String dateString = "";
+        switch (choice){
+            case"1":
+                for (int i = 0; i < MONTHS_NAMES.length; ++i) {
+                    if (i == (date.getMonth() - 1)) dateString += MONTHS_NAMES[i] + " ";
+                }
 
-        if (date.getDay() == 0) dateString += "1";
-        dateString += date.getDay() + " ";
+                if (date.getDay() == 0) dateString += "1";
+                dateString += date.getDay() + " ";
 
-        for (int i = 0; i < MONTHS_NAMES.length; ++i) {
-            if (i == (date.getMonth() - 1)) dateString += MONTHS_NAMES[i] + " ";
+                dateString += date.getYear() + " ";
+
+                dateString += changeZeroToDoubleZero(date.getHours()) + ":";
+                dateString += changeZeroToDoubleZero(date.getMinutes()) + ":";
+                dateString += changeZeroToDoubleZero(date.getSeconds()) + ":";
+                dateString += changeZeroToTripleZero(date.getMilliseconds());
+
+                return dateString;
+            case"2":
+                if (date.getDay() == 0) dateString += "1";
+                dateString += date.getDay() + " ";
+
+                for (int i = 0; i < MONTHS_NAMES.length; ++i) {
+                    if (i == (date.getMonth() - 1)) dateString += MONTHS_NAMES[i] + " ";
+                }
+                dateString += date.getYear() + " ";
+
+                dateString += changeZeroToDoubleZero(date.getHours()) + ":";
+                dateString += changeZeroToDoubleZero(date.getMinutes()) + ":";
+                dateString += changeZeroToDoubleZero(date.getSeconds()) + ":";
+                dateString += changeZeroToTripleZero(date.getMilliseconds());
+
+                return dateString;
+            case"3":
+                if (date.getDay() == 0) dateString += "1";
+                dateString += date.getDay() + "/";
+                for (int i = 0; i < MONTHS_NAMES.length; ++i) {
+                    if (i == (date.getMonth() - 1)) dateString += date.getMonth() + "/";
+                }
+
+                dateString += date.getYear() + " ";
+
+                dateString += changeZeroToDoubleZero(date.getHours()) + ":";
+                dateString += changeZeroToDoubleZero(date.getMinutes()) + ":";
+                dateString += changeZeroToDoubleZero(date.getSeconds()) + ":";
+                dateString += changeZeroToTripleZero(date.getMilliseconds());
+
+                return dateString;
+            case"4":
+                if (date.getDay() == 0) dateString += "1";
+                for (int i = 0; i < MONTHS_NAMES.length; ++i) {
+                    if (i == (date.getMonth() - 1)) dateString += date.getMonth() + "/";
+                }
+                dateString += date.getDay() + "/";
+                dateString += date.getYear() + " ";
+
+                dateString += changeZeroToDoubleZero(date.getHours()) + ":";
+                dateString += changeZeroToDoubleZero(date.getMinutes()) + ":";
+                dateString += changeZeroToDoubleZero(date.getSeconds()) + ":";
+                dateString += changeZeroToTripleZero(date.getMilliseconds());
+
+                return dateString;
+            default:
+                System.out.println("Incorrect index");
+                return dateString;
         }
-        dateString += date.getYear() + " ";
-
-        dateString += changeZeroToDoubleZero(date.getHours()) + ":";
-        dateString += changeZeroToDoubleZero(date.getMinutes()) + ":";
-        dateString += changeZeroToDoubleZero(date.getSeconds()) + ":";
-        dateString += changeZeroToTripleZero(date.getMilliseconds());
-
-        return dateString;
     }
 
     public MyDate stringToDate(String entered) throws MyDateException {
