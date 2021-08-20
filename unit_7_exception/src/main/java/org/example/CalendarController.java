@@ -48,13 +48,11 @@ public class CalendarController {
         SMALLMONTH[3] = "11";
     }
 
-
     public static void run() {
-        System.out.println("CALENDAR CALCULATOR(EUROPEAN)");
         printAvailableFormats();
         boolean endProgram = false;
         while (!endProgram) {
-            System.out.println();
+            System.out.println("CALENDAR CALCULATOR(EUROPEAN)");
             System.out.println("0. Exit\n" +
                     "1. Difference between dates \n" +
                     "2. Add or subtract time to date\n" +
@@ -91,7 +89,7 @@ public class CalendarController {
         do {
             if (!isNew) {
                 System.out.println("Incorrect date, please enter true date");
-                System.out.print("Enter the date:");
+                System.out.print("Enter the first date:");
             }
             first = in.nextLine();
             isNew = false;
@@ -103,13 +101,13 @@ public class CalendarController {
             e.printStackTrace();
         }
 
-        System.out.print("Enter the second one:");
+        System.out.print("Enter the second date:");
         String second;
         boolean isNew1 = true;
         do {
             if (!isNew1) {
                 System.out.println("Incorrect date, please enter true date");
-                System.out.print("Enter the date:");
+                System.out.print("Enter the second date:");
             }
             second = in.nextLine();
             isNew1 = false;
@@ -152,7 +150,7 @@ public class CalendarController {
         String choice;
         switch (operation) {
             case "+":
-                System.out.println(ANSWER + "to add?");
+                System.out.println(ANSWER + " to add?");
                 operand = selectMeasureAndConvertToMilliseconds();
                 myDate = CalculatorDates.addMillisecondsToDate(myDate, operand);
                 System.out.println("In what format you want see the date\n" +
@@ -164,7 +162,7 @@ public class CalendarController {
                 System.out.println("The result date: " + VALIDATOR.dateToString(myDate, choice));
                 break;
             case "-":
-                System.out.println(ANSWER + "to subtract?");
+                System.out.println(ANSWER + " to subtract?");
                 operand = selectMeasureAndConvertToMilliseconds();
                 myDate = CalculatorDates.subtractMillisecondsFromDate(myDate, operand);
                 System.out.println("In what format you want see the date\n" +
@@ -349,54 +347,59 @@ public class CalendarController {
     }
 
     private static boolean checkFormatOfDate(String input) {
-        if (input.contains("/") || input.contains("-")) {
-            String delimiter;
-            if (input.contains("/")) delimiter = "/";
-            else delimiter = "-";
+        try {
+            if (input.contains("/") || input.contains("-")) {
+                String delimiter;
+                if (input.contains("/")) delimiter = "/";
+                else delimiter = "-";
 
-            String[] split = new String[4];
+                String[] split = new String[4];
 
-            switch (delimiter) {
-                case "/":
-                    split = input.split("[/ ]");
-                    break;
-                case "-":
-                    split = input.split("[- ]");
-                    break;
-            }
-            if (split.length >= 2) {
-                int day;
-                if (split[0].equals("")) {
-                    day = 1;
-                } else {
-                    day = Integer.parseInt(split[0]);
+                switch (delimiter) {
+                    case "/":
+                        split = input.split("[/ ]");
+                        break;
+                    case "-":
+                        split = input.split("[- ]");
+                        break;
                 }
-                int month = Integer.parseInt(split[1]);
-                long year = Integer.parseInt(split[2]);
-                if ((split[0].matches("[-+]?\\d+") || split[0].matches(""))
-                        && (split[1].matches("[-+]?\\d+"))
-                        && split[2].matches("[-+]?\\d+")) {
-                    if (day > 0 && month <= 11 && month >= 1 && year >= 0) {
-                        boolean whatMonth = false;
-                        for (int i = 0; i < BIGMONTH.length; i++) {
-                            if (split[1].equals(BIGMONTH[i])) {
-                                if (day <= 31)
+                if (split.length >= 2) {
+                    int day;
+                    if (split[0].equals("")) {
+                        day = 1;
+                    } else {
+                        day = Integer.parseInt(split[0]);
+                    }
+                    int month = Integer.parseInt(split[1]);
+                    long year = Integer.parseInt(split[2]);
+
+                    if ((split[0].matches("[-+]?\\d+") || split[0].matches(""))
+                            && (split[1].matches("[-+]?\\d+"))
+                            && split[2].matches("[-+]?\\d+")) {
+                        if (day > 0 && month <= 11 && month >= 1 && year >= 0) {
+                            boolean whatMonth = false;
+                            for (int i = 0; i < BIGMONTH.length; i++) {
+                                if (split[1].equals(BIGMONTH[i])) {
+                                    if (day <= 31)
+                                        whatMonth = true;
+                                }
+                            }
+                            for (int i = 0; i < SMALLMONTH.length; i++) {
+                                if (split[1].equals(SMALLMONTH[i])) {
+                                    if (day <= 30)
+                                        whatMonth = true;
+                                }
+                            }
+                            if (split[1].equals("2")) {
+                                if (day == 29 && (year % 4 == 0 && year % 100 != 0 || year % 400 == 0))
+                                    whatMonth = true;
+                                if (day <= 28)
                                     whatMonth = true;
                             }
+                            return whatMonth;
+                        } else {
+                            return false;
                         }
-                        for (int i = 0; i < SMALLMONTH.length; i++) {
-                            if (split[1].equals(SMALLMONTH[i])) {
-                                if (day <= 30)
-                                    whatMonth = true;
-                            }
-                        }
-                        if (split[1].equals("2")) {
-                            if (day == 29 && (year % 4 == 0 && year % 100 != 0 || year % 400 == 0))
-                                whatMonth = true;
-                            if (day <= 28)
-                                whatMonth = true;
-                        }
-                        return whatMonth;
                     } else {
                         return false;
                     }
@@ -404,73 +407,86 @@ public class CalendarController {
                     return false;
                 }
             } else {
-                return false;
-            }
-        } else {
-            boolean isMonth = false;
-            String[] split = input.split("[ ]");
-            String[] MONTHS_NAMES = {"January", "February", "March", "April", "May", "June", "July",
-                    "August", "September", "October", "November", "December"};
-            if (split.length >= 2) {
-                if (split[0].matches("[-+]?\\d+")) {
-                    for (int i = 0; i < MONTHS_NAMES.length; i++) {
-                        if (split[1].equals(MONTHS_NAMES[i])) {
-                            isMonth = true;
+                boolean isMonth = false;
+                String[] split = input.split("[ ]");
+                String[] MONTHS_NAMES = {"January", "February", "March", "April", "May", "June", "July",
+                        "August", "September", "October", "November", "December"};
+                if (split.length >= 2) {
+                    if (split[0].matches("[-+]?\\d+")) {
+                        for (int i = 0; i < MONTHS_NAMES.length; i++) {
+                            if (split[1].equals(MONTHS_NAMES[i])) {
+                                isMonth = true;
+                            }
                         }
+                        return isMonth;
+                    } else {
+                        for (int i = 0; i < MONTHS_NAMES.length; i++) {
+                            if (split[0].equals(MONTHS_NAMES[i])) {
+                                isMonth = true;
+                            }
+                        }
+                        return isMonth;
                     }
-                    return isMonth;
                 } else {
-                    for (int i = 0; i < MONTHS_NAMES.length; i++) {
-                        if (split[0].equals(MONTHS_NAMES[i])) {
-                            isMonth = true;
-                        }
-                    }
-                    return isMonth;
+                    return false;
                 }
-            } else {
-                return false;
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Some numbers are missing");
+            return false;
+        } catch (NumberFormatException e) {
+            System.out.println("Not number");
+            return false;
         }
     }
-    private static boolean checkFormatOfTime(String input){
-        boolean isTime=true;
-        if (input.contains("/") || input.contains("-")) {
-            String delimiter;
-            if (input.contains("/")) delimiter = "/";
-            else delimiter = "-";
-            String[] split = new String[4];
 
-            switch (delimiter) {
-                case "/":
-                    split = input.split("[/ ]");
-                    break;
-                case "-":
-                    split = input.split("[- ]");
-                    break;
+    private static boolean checkFormatOfTime(String input) {
+        boolean isTime = true;
+        try {
+            if (input.contains("/") || input.contains("-")) {
+                String delimiter;
+                if (input.contains("/")) delimiter = "/";
+                else delimiter = "-";
+                String[] split = new String[4];
+
+                switch (delimiter) {
+                    case "/":
+                        split = input.split("[/ ]");
+                        break;
+                    case "-":
+                        split = input.split("[- ]");
+                        break;
+                }
+                if (split.length > 3) {
+                    String[] splittime = split[3].split(":");
+                    if (!splittime[0].equals("")) {
+                        if (Integer.parseInt(splittime[0]) > 23 || Integer.parseInt(splittime[0]) < 0) {
+                            isTime = false;
+                        }
+                    }
+                    if (splittime.length > 1) {
+                        if (Integer.parseInt(splittime[1]) > 59 || Integer.parseInt(splittime[1]) < 0) {
+                            isTime = false;
+                        }
+                    }
+                    if (splittime.length > 2) {
+                        if (Integer.parseInt(splittime[2]) > 59 || Integer.parseInt(splittime[2]) < 0) {
+                            isTime = false;
+                        }
+                    }
+                    if (splittime.length > 3) {
+                        if (Integer.parseInt(splittime[3]) > 999 || Integer.parseInt(splittime[3]) < 0) {
+                            isTime = false;
+                        }
+                    }
+                }
             }
-            if(split.length>3){
-                String[] splittime = split[3].split(":");
-                if(!splittime[0].equals("")) {
-                    if (Integer.parseInt(splittime[0]) > 23 || Integer.parseInt(splittime[0]) < 0) {
-                        isTime = false;
-                    }
-                }
-                if(splittime.length>1) {
-                    if (Integer.parseInt(splittime[1]) > 59 || Integer.parseInt(splittime[1]) < 0) {
-                        isTime = false;
-                    }
-                }
-                if(splittime.length>2) {
-                    if (Integer.parseInt(splittime[2]) > 59 || Integer.parseInt(splittime[2]) < 0) {
-                        isTime = false;
-                    }
-                }
-                if(splittime.length>3) {
-                    if (Integer.parseInt(splittime[3]) > 999 || Integer.parseInt(splittime[3]) < 0) {
-                        isTime = false;
-                    }
-                }
-            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Some numbers are missing");
+            return false;
+        } catch (NumberFormatException e) {
+            System.out.println("Not number");
+            return false;
         }
         return isTime;
     }

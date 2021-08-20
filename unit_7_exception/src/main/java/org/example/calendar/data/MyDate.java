@@ -1,6 +1,6 @@
 package org.example.calendar.data;
 
-public class MyDate{
+public class MyDate {
     private int year;
     private int month;
     private int day;
@@ -65,7 +65,7 @@ public class MyDate{
         this.milliseconds = milliseconds;
     }
 
-    public MyDate(){
+    public MyDate() {
         year = 0;
         month = 1;
         day = 1;

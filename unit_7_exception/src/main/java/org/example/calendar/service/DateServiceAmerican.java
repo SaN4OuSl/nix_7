@@ -11,8 +11,8 @@ public class DateServiceAmerican {
 
     public String dateToString(MyDate date, String choice) {
         String dateString = "";
-        switch (choice){
-            case"1":
+        switch (choice) {
+            case "1":
                 for (int i = 0; i < MONTHS_NAMES.length; ++i) {
                     if (i == (date.getMonth() - 1)) dateString += MONTHS_NAMES[i] + " ";
                 }
@@ -28,7 +28,7 @@ public class DateServiceAmerican {
                 dateString += changeZeroToTripleZero(date.getMilliseconds());
 
                 return dateString;
-            case"2":
+            case "2":
                 if (date.getDay() == 0) dateString += "1";
                 dateString += date.getDay() + " ";
 
@@ -43,7 +43,7 @@ public class DateServiceAmerican {
                 dateString += changeZeroToTripleZero(date.getMilliseconds());
 
                 return dateString;
-            case"3":
+            case "3":
                 if (date.getDay() == 0) dateString += "1";
                 dateString += date.getDay() + "/";
                 for (int i = 0; i < MONTHS_NAMES.length; ++i) {
@@ -58,7 +58,7 @@ public class DateServiceAmerican {
                 dateString += changeZeroToTripleZero(date.getMilliseconds());
 
                 return dateString;
-            case"4":
+            case "4":
                 if (date.getDay() == 0) dateString += "1";
                 for (int i = 0; i < MONTHS_NAMES.length; ++i) {
                     if (i == (date.getMonth() - 1)) dateString += date.getMonth() + "/";
