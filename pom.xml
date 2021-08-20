@@ -14,6 +14,7 @@
         <module>unit_5_string</module>
         <module>module_1_nix7</module>
         <module>unit_6_logs_and_tests</module>
+        <module>unit_7_exception</module>
     </modules>
 
 </project>
