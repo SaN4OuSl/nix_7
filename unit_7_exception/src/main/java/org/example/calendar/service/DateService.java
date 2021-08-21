@@ -101,9 +101,11 @@ public class DateService {
 
         switch (delimiter) {
             case "/":
+                input+=" 0";
                 split = input.split("[/ ]");
                 break;
             case "-":
+                input+=" 0";
                 split = input.split("[- ]");
                 break;
         }
@@ -165,6 +167,9 @@ public class DateService {
         String[] split = time.split(":");
         try {
             for (int i = 0; i < split.length; ++i) {
+                if(split[i].equals("")){
+                    split[i]="0";
+                }
                 switch (i) {
                     case 0:
                         date.setHours(Integer.parseInt(split[0]));

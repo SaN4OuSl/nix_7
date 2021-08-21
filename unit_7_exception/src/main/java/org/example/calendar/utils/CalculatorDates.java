@@ -1,4 +1,4 @@
-package org.example.calendar.util;
+package org.example.calendar.utils;
 
 import org.example.calendar.data.MyDate;
 
