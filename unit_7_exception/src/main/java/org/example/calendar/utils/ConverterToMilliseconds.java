@@ -82,5 +82,4 @@ public class ConverterToMilliseconds {
         }
         return monthMilliseconds;
     }
-
 }

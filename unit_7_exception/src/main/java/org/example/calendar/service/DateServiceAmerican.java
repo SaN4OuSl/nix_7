@@ -3,6 +3,8 @@ package org.example.calendar.service;
 import org.example.calendar.data.MyDate;
 import org.example.calendar.exceptions.MyDateException;
 
+import java.util.Locale;
+
 public class DateServiceAmerican {
     private final String[] MONTHS_NAMES = {"January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"};
@@ -97,11 +99,11 @@ public class DateServiceAmerican {
 
         switch (delimiter) {
             case "/":
-                input+=" 0";
+                input += " 0";
                 split = input.split("[/ ]");
                 break;
             case "-":
-                input+=" 0";
+                input += " 0";
                 split = input.split("[- ]");
                 break;
         }
@@ -135,7 +137,7 @@ public class DateServiceAmerican {
             for (String s : split) {
                 indexOfMonth++;
                 for (int j = 0; j < MONTHS_NAMES.length; j++) {
-                    if (s.equals(MONTHS_NAMES[j])) {
+                    if (s.toLowerCase(Locale.ROOT).equals(MONTHS_NAMES[j].toLowerCase(Locale.ROOT))) {
                         date.setMonth(j + 1);
                         endOfLoop = true;
                         break;

@@ -6,6 +6,7 @@ import org.example.calendar.service.DateServiceAmerican;
 import org.example.calendar.utils.CalculatorDates;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 import static org.example.calendar.controllers.SupportController.*;
@@ -290,16 +291,58 @@ public class CalendarControllerAmerican {
                         "August", "September", "October", "November", "December"};
                 if (split.length >= 2) {
                     if (split[1].matches("[-+]?\\d+")) {
+                        int day = Integer.parseInt(split[1]);
+                        int year = Integer.parseInt(split[2]);
                         for (int i = 0; i < MONTHS_NAMES.length; i++) {
-                            if (split[0].equals(MONTHS_NAMES[i])) {
-                                isMonth = true;
+                            if (split[0].toLowerCase(Locale.ROOT).equals(MONTHS_NAMES[i].toLowerCase(Locale.ROOT))) {
+                                if (day > 0 && year >= 0) {
+                                    for (int j = 0; j < BIGMONTH.length; j++) {
+                                        if (i+1==Integer.parseInt(BIGMONTH[j])) {
+                                            if (day <= 31)
+                                                isMonth = true;
+                                        }
+                                    }
+                                    for (int j = 0; j < SMALLMONTH.length; j++) {
+                                        if (i+1==Integer.parseInt(SMALLMONTH[j])) {
+                                            if (day <= 30)
+                                                isMonth = true;
+                                        }
+                                    }
+                                    if (split[0].toLowerCase(Locale.ROOT).equals("february")) {
+                                        if (day == 29 && (year % 4 == 0 && year % 100 != 0 || year % 400 == 0))
+                                            isMonth = true;
+                                        if (day <= 28)
+                                            isMonth = true;
+                                    }
+                                }
                             }
                         }
                         return isMonth;
                     } else {
+                        int day = Integer.parseInt(split[0]);
+                        int year = Integer.parseInt(split[2]);
                         for (int i = 0; i < MONTHS_NAMES.length; i++) {
-                            if (split[1].equals(MONTHS_NAMES[i])) {
-                                isMonth = true;
+                            if (split[1].toLowerCase(Locale.ROOT).equals(MONTHS_NAMES[i].toLowerCase(Locale.ROOT))) {
+                                if (day > 0 && year >= 0) {
+                                    for (int j = 0; j < BIGMONTH.length; j++) {
+                                        if (i+1==Integer.parseInt(BIGMONTH[j])) {
+                                            if (day <= 31)
+                                                isMonth = true;
+                                        }
+                                    }
+                                    for (int j = 0; j < SMALLMONTH.length; j++) {
+                                        if (i+1==Integer.parseInt(SMALLMONTH[j])) {
+                                            if (day <= 30)
+                                                isMonth = true;
+                                        }
+                                    }
+                                    if (split[1].toLowerCase(Locale.ROOT).equals("february")) {
+                                        if (day == 29 && (year % 4 == 0 && year % 100 != 0 || year % 400 == 0))
+                                            isMonth = true;
+                                        if (day <= 28)
+                                            isMonth = true;
+                                    }
+                                }
                             }
                         }
                         return isMonth;

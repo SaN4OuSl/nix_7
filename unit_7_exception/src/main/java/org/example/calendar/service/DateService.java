@@ -3,11 +3,11 @@ package org.example.calendar.service;
 import org.example.calendar.data.MyDate;
 import org.example.calendar.exceptions.MyDateException;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 
 public class DateService {
-    private static final Scanner in = new Scanner(System.in);
     private final String[] MONTHS_NAMES = {"January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"};
 
@@ -101,11 +101,11 @@ public class DateService {
 
         switch (delimiter) {
             case "/":
-                input+=" 0";
+                input += " 0";
                 split = input.split("[/ ]");
                 break;
             case "-":
-                input+=" 0";
+                input += " 0";
                 split = input.split("[- ]");
                 break;
         }
@@ -139,7 +139,7 @@ public class DateService {
             for (String s : split) {
                 indexOfMonth++;
                 for (int j = 0; j < MONTHS_NAMES.length; j++) {
-                    if (s.equals(MONTHS_NAMES[j])) {
+                    if (s.toLowerCase(Locale.ROOT).equals(MONTHS_NAMES[j].toLowerCase(Locale.ROOT))) {
                         date.setMonth(j + 1);
                         endOfLoop = true;
                         break;
@@ -167,8 +167,8 @@ public class DateService {
         String[] split = time.split(":");
         try {
             for (int i = 0; i < split.length; ++i) {
-                if(split[i].equals("")){
-                    split[i]="0";
+                if (split[i].equals("")) {
+                    split[i] = "0";
                 }
                 switch (i) {
                     case 0:
