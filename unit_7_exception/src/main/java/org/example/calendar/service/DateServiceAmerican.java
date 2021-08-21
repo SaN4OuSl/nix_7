@@ -130,7 +130,28 @@ public class DateServiceAmerican {
         MyDate date = new MyDate();
 
         String[] split = input.split("[ ]");
-
+        int countSpace = 0;
+        for (char element : input.toCharArray()) {
+            if (element == ' ') countSpace++;
+        }
+        if (countSpace == 0) {
+            if (split[0].matches("[-+]?\\d+") && Integer.parseInt(split[0]) >= 0) {
+                date.setMonth(1);
+                date.setDay(1);
+                date.setDay(Integer.parseInt(split[0]));
+                if (input.contains(":")) setTime(date, split[split.length - 1]);
+                return date;
+            }
+        }
+        if (countSpace == 1 && input.contains(":")) {
+            if (split[0].matches("[-+]?\\d+") && Integer.parseInt(split[0]) >= 0) {
+                date.setMonth(1);
+                date.setDay(1);
+                date.setDay(Integer.parseInt(split[0]));
+                if (input.contains(":")) setTime(date, split[split.length - 1]);
+                return date;
+            }
+        }
         try {
             boolean endOfLoop = false;
             int indexOfMonth = -1;

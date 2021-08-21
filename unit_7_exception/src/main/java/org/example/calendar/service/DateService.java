@@ -4,8 +4,6 @@ import org.example.calendar.data.MyDate;
 import org.example.calendar.exceptions.MyDateException;
 
 import java.util.Locale;
-import java.util.Scanner;
-
 
 public class DateService {
     private final String[] MONTHS_NAMES = {"January", "February", "March", "April", "May", "June", "July",
@@ -132,7 +130,28 @@ public class DateService {
         MyDate date = new MyDate();
 
         String[] split = input.split("[ ]");
-
+        int countSpace = 0;
+        for (char element : input.toCharArray()) {
+            if (element == ' ') countSpace++;
+        }
+        if (countSpace == 0) {
+            if (split[0].matches("[-+]?\\d+") && Integer.parseInt(split[0]) >= 0) {
+                date.setMonth(1);
+                date.setDay(1);
+                date.setDay(Integer.parseInt(split[0]));
+                if (input.contains(":")) setTime(date, split[split.length - 1]);
+                return date;
+            }
+        }
+        if (countSpace == 1 && input.contains(":")) {
+            if (split[0].matches("[-+]?\\d+") && Integer.parseInt(split[0]) >= 0) {
+                date.setMonth(1);
+                date.setDay(1);
+                date.setDay(Integer.parseInt(split[0]));
+                if (input.contains(":")) setTime(date, split[split.length - 1]);
+                return date;
+            }
+        }
         try {
             boolean endOfLoop = false;
             int indexOfMonth = -1;

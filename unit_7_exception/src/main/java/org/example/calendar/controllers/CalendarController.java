@@ -2,11 +2,12 @@ package org.example.calendar.controllers;
 
 import org.example.calendar.data.MyDate;
 import org.example.calendar.exceptions.MyDateException;
-import org.example.calendar.utils.CalculatorDates;
 import org.example.calendar.service.DateService;
-import org.example.calendar.utils.ConverterToMilliseconds;
+import org.example.calendar.utils.CalculatorDates;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
 
 import static org.example.calendar.controllers.SupportController.*;
 
@@ -16,6 +17,17 @@ public class CalendarController {
     private static final String[] BIGMONTH = new String[7];
     private static final String[] SMALLMONTH = new String[4];
     private static final String ANSWER = "What do you want";
+    private static final String[] FORMATS = new String[7];
+
+    static {
+        FORMATS[0] = "dd/mm/yy - 01/12/34 00:00:00:000";
+        FORMATS[1] = "/mm/yyyy - 1-4-2021 00:00:00:000";
+        FORMATS[2] = "dd//yyyy - 4-1-2021 00:00:00:000";
+        FORMATS[3] = "mmm d yy - Month 4 2021";
+        FORMATS[4] = "dd mmm yyyy 00:00 - 09 Month 789 24:23";
+        FORMATS[5] = "dd-mm-yy - 01-12-34";
+        FORMATS[6] = "yyy 00:00 - 01 January 2020 00:00";
+    }
 
     static {
         BIGMONTH[0] = "1";
@@ -220,39 +232,12 @@ public class CalendarController {
         System.out.println();
     }
 
-    public static ArrayList<MyDate> sortDates(ArrayList<MyDate> dates, String a) {
-        boolean isSorted;
-        int listSize = dates.size();
-        switch (a) {
-            case "1":
-                do {
-                    isSorted = true;
-                    for (int i = 0; i < listSize - 1; i++) {
-                        if (ConverterToMilliseconds.dateIntoMilliseconds(dates.get(i)) < ConverterToMilliseconds.dateIntoMilliseconds(dates.get(i + 1))) {
-                            MyDate date = dates.get(i);
-                            dates.set(i, dates.get(i + 1));
-                            dates.set(i + 1, date);
-                            isSorted = false;
-                        }
-                    }
-                } while (!isSorted);
-                return dates;
-            case "2":
-                do {
-                    isSorted = true;
-                    for (int i = 0; i < listSize - 1; i++) {
-                        if (ConverterToMilliseconds.dateIntoMilliseconds(dates.get(i)) > ConverterToMilliseconds.dateIntoMilliseconds(dates.get(i + 1))) {
-                            MyDate date = dates.get(i);
-                            dates.set(i, dates.get(i + 1));
-                            dates.set(i + 1, date);
-                            isSorted = false;
-                        }
-                    }
-                } while (!isSorted);
-                return dates;
-            default:
-                return dates;
+    public static void printAvailableFormats() {
+        System.out.println("There are several available formats for entering date:");
+        for (int i = 0; i < FORMATS.length; i++) {
+            System.out.println(FORMATS[i] + ";");
         }
+        System.out.println();
     }
 
     private static boolean checkFormatOfDate(String input) {
@@ -300,7 +285,7 @@ public class CalendarController {
                     if ((split[0].matches("[-+]?\\d+") || split[0].matches(""))
                             && (split[1].matches("[-+]?\\d+"))
                             && split[2].matches("[-+]?\\d+")) {
-                        if (day > 0 && month <= 11 && month >= 1 && year >= 0) {
+                        if (day > 0 && month <= 12 && month >= 1 && year >= 0) {
                             boolean whatMonth = false;
                             for (int i = 0; i < BIGMONTH.length; i++) {
                                 if (split[1].equals(BIGMONTH[i])) {
@@ -332,10 +317,26 @@ public class CalendarController {
                 }
             } else {
                 boolean isMonth = false;
+                int countSpace = 0;
+
                 String[] split = input.split("[ ]");
+                for (char element : input.toCharArray()) {
+                    if (element == ' ') countSpace++;
+                }
+                if (countSpace == 0) {
+                    if (split[0].matches("[-+]?\\d+") && Integer.parseInt(split[0]) >= 0) {
+                        return true;
+                    }
+                }
+                if (input.contains(":") && countSpace == 1) {
+                    if (split[0].matches("[-+]?\\d+") && Integer.parseInt(split[0]) >= 0) {
+                        return true;
+                    }
+                }
                 String[] MONTHS_NAMES = {"January", "February", "March", "April", "May", "June", "July",
                         "August", "September", "October", "November", "December"};
-                if (split.length >= 2) { ;
+                if (split.length >= 2) {
+                    ;
                     if (split[0].matches("[-+]?\\d+")) {
                         int day = Integer.parseInt(split[0]);
                         int year = Integer.parseInt(split[2]);
@@ -343,13 +344,13 @@ public class CalendarController {
                             if (split[1].toLowerCase(Locale.ROOT).equals(MONTHS_NAMES[i].toLowerCase(Locale.ROOT))) {
                                 if (day > 0 && year >= 0) {
                                     for (int j = 0; j < BIGMONTH.length; j++) {
-                                        if (i+1==Integer.parseInt(BIGMONTH[j])) {
+                                        if (i + 1 == Integer.parseInt(BIGMONTH[j])) {
                                             if (day <= 31)
                                                 isMonth = true;
                                         }
                                     }
                                     for (int j = 0; j < SMALLMONTH.length; j++) {
-                                        if (i+1==Integer.parseInt(SMALLMONTH[j])) {
+                                        if (i + 1 == Integer.parseInt(SMALLMONTH[j])) {
                                             if (day <= 30)
                                                 isMonth = true;
                                         }
@@ -371,13 +372,13 @@ public class CalendarController {
                             if (split[0].toLowerCase(Locale.ROOT).equals(MONTHS_NAMES[i].toLowerCase(Locale.ROOT))) {
                                 if (day > 0 && year >= 0) {
                                     for (int j = 0; j < BIGMONTH.length; j++) {
-                                        if (i+1==Integer.parseInt(BIGMONTH[j])) {
+                                        if (i + 1 == Integer.parseInt(BIGMONTH[j])) {
                                             if (day <= 31)
                                                 isMonth = true;
                                         }
                                     }
                                     for (int j = 0; j < SMALLMONTH.length; j++) {
-                                        if (i+1==Integer.parseInt(SMALLMONTH[j])) {
+                                        if (i + 1 == Integer.parseInt(SMALLMONTH[j])) {
                                             if (day <= 30)
                                                 isMonth = true;
                                         }

@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class SupportController {
     private static final Scanner in = new Scanner(System.in);
-    private static final String[] FORMATS = new String[5];
     private static final String TYPES = "1-Milliseconds\n" +
             "2-Seconds\n" +
             "3-Minutes\n" +
@@ -17,21 +16,7 @@ public class SupportController {
             "5-Days\n" +
             "6-Years\n";
 
-    static {
-        FORMATS[0] = "dd/mm/yy - 01/12/34";
-        FORMATS[1] = "/mm/yyyy - 1-4-2021 23:23";
-        FORMATS[2] = "mmm d yy - Month 4 2021";
-        FORMATS[3] = "dd mmm yyyy 00:00 - 09 Month 789 24:23";
-        FORMATS[4] = "dd-mm-yy - 01-12-34";
-    }
 
-    public static void printAvailableFormats() {
-        System.out.println("There are several available formats for entering date:");
-        for (int i = 0; i < FORMATS.length; i++) {
-            System.out.println(i + " " + FORMATS[i] + ";");
-        }
-        System.out.println();
-    }
 
     public static ArrayList<MyDate> sortDates(ArrayList<MyDate> dates, String a) {
         boolean isSorted;
