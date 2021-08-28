@@ -406,5 +406,4 @@ public class CalendarControllerAmerican {
             return false;
         }
     }
-
 }

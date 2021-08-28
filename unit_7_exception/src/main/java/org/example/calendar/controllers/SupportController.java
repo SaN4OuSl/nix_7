@@ -16,8 +16,6 @@ public class SupportController {
             "5-Days\n" +
             "6-Years\n";
 
-
-
     public static ArrayList<MyDate> sortDates(ArrayList<MyDate> dates, String a) {
         boolean isSorted;
         int listSize = dates.size();
