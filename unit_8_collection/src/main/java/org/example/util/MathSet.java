@@ -1,6 +1,7 @@
 package org.example.util;
 
 public class MathSet<Numbers extends Number & Comparable<Numbers>> {
+
     private final int DEFAULT_SIZE = 10;
     private int capacity;
     private Numbers[] array;

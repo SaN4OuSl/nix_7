@@ -5,6 +5,7 @@ import org.example.util.MathSet;
 import java.util.Scanner;
 
 public class MathSetController {
+
     private static final MathSet<Integer> numbers = new MathSet<>();
     private static final Scanner in = new Scanner(System.in);
 
