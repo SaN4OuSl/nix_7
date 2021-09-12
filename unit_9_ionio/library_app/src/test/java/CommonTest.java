@@ -1,7 +1,7 @@
 import org.example.dao.AuthorDao;
 import org.example.dao.BookDao;
-import org.example.dao.impl.InMemoryDB.AuthorDaoInMemoryDBImpl;
-import org.example.dao.impl.InMemoryDB.BookDaoInMemoryDBImpl;
+import org.example.dao.impl.CsvDB.AuthorDaoCsvDBImpl;
+import org.example.dao.impl.CsvDB.BookDaoCsvDBImpl;
 import org.example.entity.Author;
 import org.example.entity.Book;
 import org.junit.jupiter.api.MethodOrderer;
@@ -10,8 +10,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CommonTest {
-    private final AuthorDao authorDao = new AuthorDaoInMemoryDBImpl();
-    private final BookDao bookDao = new BookDaoInMemoryDBImpl();
+    private final AuthorDao authorDao = new AuthorDaoCsvDBImpl();
+    private final BookDao bookDao = new BookDaoCsvDBImpl();
 
     @Test
     public void test() {
