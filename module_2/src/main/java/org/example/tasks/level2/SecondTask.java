@@ -34,7 +34,7 @@ public class SecondTask {
 
     private static void inputByYourself() {
         System.out.println();
-        System.out.println("Enter dates by separating them with the space bar (Alex Iegor Vasya Lubov Andrey)");
+        System.out.println("Enter names by separating them with the space bar (Alex Iegor Vasya Lubov Andrey)");
         String[] names = in.nextLine().split(" ");
         ArrayList<String> listOfNames = new ArrayList<>(Arrays.asList(names));
 
