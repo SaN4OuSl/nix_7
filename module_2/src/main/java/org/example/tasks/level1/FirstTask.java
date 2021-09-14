@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class FirstTask {
 
-    private static final String file = "files_for_module_2/dates.txt";
+    private static final String file = "module_2/src/main/resources/files/dates.txt";
     private static final Scanner in = new Scanner(System.in);
 
     public static void run() {

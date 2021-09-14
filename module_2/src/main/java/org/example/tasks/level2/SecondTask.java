@@ -9,7 +9,7 @@ import java.util.*;
 public class SecondTask {
 
     private static final Scanner in = new Scanner(System.in);
-    private static final String filepath = "files_for_module_2/names.txt";
+    private static final String filepath = "module_2/src/main/resources/files/names.txt";
 
     public static void run() {
         System.out.println("Second task");
@@ -49,7 +49,7 @@ public class SecondTask {
             ArrayList<String> namesFromFile = (ArrayList<String>) Files.readAllLines(path);
             System.out.println("The list of names from file names.txt");
             namesFromFile.forEach(n -> System.out.print(n + " "));
-            System.out.println();
+
             System.out.println("First unique name from list: ");
             System.out.println(findFirstUnique(namesFromFile));
         } catch (IOException e) {
@@ -61,7 +61,7 @@ public class SecondTask {
         LinkedHashMap<String, Integer> counts = new LinkedHashMap<>();
 
         for (String name : names) {
-            counts.compute(name, (k, v) -> (v == null) ? 1 : v + 1);
+            counts.compute(name, (key, value) -> (value == null) ? 1 : value + 1);
         }
         for (Map.Entry<String, Integer> entry : counts.entrySet()) {
             if (entry.getValue() == 1) {

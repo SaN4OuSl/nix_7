@@ -14,8 +14,8 @@ import java.util.List;
 
 public class TrirdTask {
 
-    private static final String input = "files_for_module_2/input.txt";
-    private static final String output = "files_for_module_2/output.txt";
+    private static final String input = "module_2/src/main/resources/files/input.txt";
+    private static final String output = "module_2/src/main/resources/files/output.txt";
 
     public static void run() {
         System.out.println("Third task");

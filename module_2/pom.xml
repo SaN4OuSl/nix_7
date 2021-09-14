@@ -36,7 +36,7 @@
     </dependencies>
 
     <build>
-        <finalName>Unit9App</finalName>
+        <finalName>Module2App</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -57,7 +57,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.example.Unit9Main</mainClass>
+                                    <mainClass>org.example.Module2Main</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
