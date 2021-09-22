@@ -92,13 +92,17 @@ public class TrirdTask {
         DijkstraShortestPath<String, DefaultWeightedEdge> dijkstraShortestPath
                 = new DijkstraShortestPath<>(graph);
 
-        double weight;
+        double weight = 0;
         String[] sourceAndTarget;
         StringBuilder output = new StringBuilder();
         for (int i = 1; i < countFoundWays + 1; i++) {
             sourceAndTarget = findWay.get(i).split(" ");
-            weight = dijkstraShortestPath.getPath(sourceAndTarget[0], sourceAndTarget[1])
-                    .getWeight();
+            if (weight <= 200000) {
+                weight = dijkstraShortestPath.getPath(sourceAndTarget[0], sourceAndTarget[1])
+                        .getWeight();
+            } else {
+                weight = 0;
+            }
             System.out.println(weight);
             output.append(weight).append("\n");
         }
