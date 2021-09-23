@@ -87,6 +87,7 @@ public class TrirdTask {
     }
 
     private static void findWay(Graph<String, DefaultWeightedEdge> graph, List<String> findWay) {
+        int maxCost = 200_000;
         int countFoundWays = Integer.parseInt(findWay.get(0));
 
         DijkstraShortestPath<String, DefaultWeightedEdge> dijkstraShortestPath
@@ -97,11 +98,11 @@ public class TrirdTask {
         StringBuilder output = new StringBuilder();
         for (int i = 1; i < countFoundWays + 1; i++) {
             sourceAndTarget = findWay.get(i).split(" ");
-            if (weight <= 200000) {
+            if (weight <= maxCost) {
                 weight = dijkstraShortestPath.getPath(sourceAndTarget[0], sourceAndTarget[1])
                         .getWeight();
             } else {
-                weight = 0;
+                weight = maxCost;
             }
             System.out.println(weight);
             output.append(weight).append("\n");
