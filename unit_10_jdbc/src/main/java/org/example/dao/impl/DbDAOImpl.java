@@ -1,6 +1,5 @@
 package org.example.dao.impl;
 
-import org.example.Unit10Main;
 import org.example.dao.DbDAO;
 import org.example.entity.LocationEntity;
 import org.example.entity.ProblemEntity;
@@ -17,11 +16,6 @@ import java.util.Properties;
 
 public class DbDAOImpl implements DbDAO {
 
-    private static final String GET_LOCATION = "SELECT * FROM locations WHERE id LIKE ?";
-    private static final String GET_ALL_LOCATIONS = "SELECT * FROM locations";
-    private static final String GET_ALL_ROUTES = "SELECT * FROM routes";
-    private static final String GET_UNSOLVED_PROBLEMS = "SELECT * FROM problems a LEFT JOIN solutions b ON a.id = b.problem_id WHERE b.problem_id IS NULL";
-    private static final String CREATE_SOLUTIONS = "INSERT INTO solutions (problem_id,cost) values(?,?)";
     private Connection connection;
 
     public DbDAOImpl() {
@@ -40,7 +34,7 @@ public class DbDAOImpl implements DbDAO {
 
         Properties properties = new Properties();
 
-        try (InputStream input = Unit10Main.class.getResourceAsStream("/application.properties")) {
+        try (InputStream input = DbDAOImpl.class.getResourceAsStream("/application.properties")) {
             properties.load(input);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
@@ -49,8 +43,8 @@ public class DbDAOImpl implements DbDAO {
         return properties;
     }
 
-    public List<ProblemEntity> getUnsolvedProblems() throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(GET_UNSOLVED_PROBLEMS)) {
+    public List<ProblemEntity> getUnsolvedProblems() {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM problems a LEFT JOIN solutions b ON a.id = b.problem_id WHERE b.problem_id IS NULL")) {
             List<ProblemEntity> problems = new ArrayList<>();
             ProblemEntity problem;
             ResultSet resultSet = statement.executeQuery();
@@ -63,12 +57,12 @@ public class DbDAOImpl implements DbDAO {
             }
             return problems;
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new RuntimeException(e);
         }
     }
 
-    public LocationEntity getLocationById(Integer id) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(GET_LOCATION)) {
+    public LocationEntity getLocationById(Integer id) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM locations WHERE id LIKE ?")) {
             LocationEntity location = new LocationEntity();
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -78,15 +72,15 @@ public class DbDAOImpl implements DbDAO {
             }
             return location;
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new RuntimeException(e);
         }
     }
 
-    public List<LocationEntity> readAllLocations() throws SQLException {
+    public List<LocationEntity> readAllLocations() {
         try (Statement statement = connection.createStatement()) {
             List<LocationEntity> locations = new ArrayList<>();
             LocationEntity location;
-            ResultSet resultSet = statement.executeQuery(GET_ALL_LOCATIONS);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM locations");
             while (resultSet.next()) {
                 location = new LocationEntity();
                 location.setId(resultSet.getInt("id"));
@@ -96,15 +90,15 @@ public class DbDAOImpl implements DbDAO {
             }
             return locations;
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new RuntimeException(e);
         }
     }
 
-    public List<RouteEntity> readAllRouts() throws SQLException {
+    public List<RouteEntity> readAllRouts() {
         try (Statement statement = connection.createStatement()) {
             List<RouteEntity> routes = new ArrayList<>();
             RouteEntity route;
-            ResultSet resultSet = statement.executeQuery(GET_ALL_ROUTES);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM routes");
             while (resultSet.next()) {
                 route = new RouteEntity();
                 route.setId(resultSet.getInt("id"));
@@ -116,17 +110,25 @@ public class DbDAOImpl implements DbDAO {
             }
             return routes;
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new RuntimeException(e);
         }
     }
 
-    public Integer createSolutions(SolutionEntity solution) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(CREATE_SOLUTIONS)) {
+    public Integer createSolutions(SolutionEntity solution) {
+        try (PreparedStatement statement = connection.prepareStatement("INSERT INTO solutions (problem_id,cost) values(?,?)")) {
             statement.setInt(1, solution.getProblem_id());
             statement.setInt(2, solution.getCost());
             return statement.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void closeConnection() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

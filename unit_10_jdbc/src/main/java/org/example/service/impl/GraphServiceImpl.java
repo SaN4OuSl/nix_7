@@ -15,13 +15,11 @@ import java.util.List;
 
 public class GraphServiceImpl implements GraphService {
 
-    private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
-    private static final Logger LOGGER_WARN = LoggerFactory.getLogger("warn");
-    private static final Logger LOGGER_ERROR = LoggerFactory.getLogger("error");
+    private static final Logger LOGGER = LoggerFactory.getLogger("info");
     private SimpleWeightedGraph<String, DefaultWeightedEdge> graph;
 
     public void initializeGraph(List<LocationEntity> locations, List<RouteEntity> routes) throws NotFoundException {
-        LOGGER_INFO.info("Start initialize graph.");
+        LOGGER.info("Start initialize graph.");
         graph = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
         for (LocationEntity location : locations) {
             graph.addVertex(location.getName());
@@ -38,7 +36,7 @@ public class GraphServiceImpl implements GraphService {
     }
 
     public SolutionEntity shortestWay(LocationEntity from, LocationEntity to) {
-        LOGGER_INFO.info("Start find shortest way.");
+        LOGGER.info("Start find shortest way.");
         int maxCost = 200_000;
         DijkstraShortestPath<String, DefaultWeightedEdge> dijkstraShortestPath
                 = new DijkstraShortestPath<>(graph);
@@ -48,18 +46,18 @@ public class GraphServiceImpl implements GraphService {
         if (cost <= maxCost)
             solution.setCost((int) cost);
         else {
-            LOGGER_WARN.warn("The cost of the way is more than 200 000");
+            LOGGER.info("The cost of the way is more than 200 000");
             solution.setCost(maxCost);
         }
         return solution;
     }
 
     private LocationEntity findLocationById(List<LocationEntity> locations, Integer id) throws NotFoundException {
-        LOGGER_INFO.info("Start find location by id.");
+        LOGGER.info("Start find location by id.");
         for (LocationEntity location : locations) {
             if (location.getId().equals(id)) return location;
         }
-        LOGGER_ERROR.error("Some error with location. " + new NotFoundException("location"));
+        LOGGER.info("Some error with location. " + new NotFoundException("location"));
         throw new NotFoundException("location");
     }
 }

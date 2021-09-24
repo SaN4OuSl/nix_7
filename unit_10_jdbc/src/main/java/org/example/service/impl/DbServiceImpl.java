@@ -15,32 +15,37 @@ import java.util.List;
 
 public class DbServiceImpl implements DbService {
 
-    private static final Logger LOGGER_INFO = LoggerFactory.getLogger("info");
+    private static final Logger LOGGER = LoggerFactory.getLogger("info");
     private final DbDAOImpl DAO = new DbDAOImpl();
 
     public List<ProblemEntity> getUnsolvedProblems() throws SQLException {
-        LOGGER_INFO.info("Start getting unsolved problems.");
+        LOGGER.info("Start getting unsolved problems.");
         return DAO.getUnsolvedProblems();
     }
 
     public LocationEntity getLocationById(Integer id) throws SQLException, InvalidIdException {
-        LOGGER_INFO.info("Start getting location by id.");
+        LOGGER.info("Start getting location by id.");
         if (id <= 0) throw new InvalidIdException();
         return DAO.getLocationById(id);
     }
 
     public List<RouteEntity> readAllRouts() throws SQLException {
-        LOGGER_INFO.info("Start reading all routes.");
+        LOGGER.info("Start reading all routes.");
         return DAO.readAllRouts();
     }
 
     public List<LocationEntity> readAllLocations() throws SQLException {
-        LOGGER_INFO.info("Start reading locations.");
+        LOGGER.info("Start reading locations.");
         return DAO.readAllLocations();
     }
 
     public Integer createSolution(SolutionEntity solution) throws SQLException {
-        LOGGER_INFO.info("Start creating solution.");
+        LOGGER.info("Start creating solution.");
         return DAO.createSolutions(solution);
+    }
+
+    public void closeConnection() {
+        LOGGER.info("Close connection");
+        DAO.closeConnection();
     }
 }
