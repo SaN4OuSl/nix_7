@@ -15,6 +15,7 @@ import java.util.List;
 public class Unit10Main {
 
     public static void main(String[] args) {
+        PrintServiceImpl printService = new PrintServiceImpl();
         DbServiceImpl dbService = new DbServiceImpl(new DbDAOImpl());
         try {
             List<LocationEntity> locations = dbService.readAllLocations();
@@ -23,7 +24,7 @@ public class Unit10Main {
 
             List<ProblemEntity> problems = dbService.getUnsolvedProblems();
 
-            List<SolutionEntity> solutionsOfProblems = PrintServiceImpl.findSolutionForUnsolvedProblem(problems);
+            List<SolutionEntity> solutionsOfProblems = printService.findSolutionForUnsolvedProblem(problems);
 
             System.out.println("Locations:");
             locations.forEach(location -> System.out.println(location.getId() + ". " + location.getName()));

@@ -8,14 +8,15 @@ import org.example.entity.RouteEntity;
 import org.example.entity.SolutionEntity;
 import org.example.exception.InvalidIdException;
 import org.example.exception.NotFoundException;
+import org.example.service.PrintService;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrintServiceImpl {
+public class PrintServiceImpl implements PrintService {
 
-    public static List<SolutionEntity> findSolutionForUnsolvedProblem(List<ProblemEntity> problems) {
+    public  List<SolutionEntity> findSolutionForUnsolvedProblem(List<ProblemEntity> problems) {
 
         try (DbDAO dao = new DbDAOImpl()) {
             DbServiceImpl dbService = new DbServiceImpl(dao);
