@@ -8,7 +8,7 @@ import org.example.entity.SolutionEntity;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DbDAO {
+public interface DbDAO extends AutoCloseable {
 
     List<ProblemEntity> getUnsolvedProblems() throws SQLException;
 
@@ -18,5 +18,8 @@ public interface DbDAO {
 
     List<RouteEntity> readAllRouts() throws SQLException;
 
-    Integer createSolutions(SolutionEntity solution) throws SQLException;
+    void createSolutions(List<SolutionEntity> solutions) throws SQLException;
+
+    @Override
+    void close() throws SQLException;
 }

@@ -1,6 +1,6 @@
 package org.example.service.impl;
 
-import org.example.dao.impl.DbDAOImpl;
+import org.example.dao.DbDAO;
 import org.example.entity.LocationEntity;
 import org.example.entity.ProblemEntity;
 import org.example.entity.RouteEntity;
@@ -16,7 +16,11 @@ import java.util.List;
 public class DbServiceImpl implements DbService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("info");
-    private final DbDAOImpl DAO = new DbDAOImpl();
+    private final DbDAO DAO;
+
+    public DbServiceImpl(DbDAO dao) {
+        DAO = dao;
+    }
 
     public List<ProblemEntity> getUnsolvedProblems() throws SQLException {
         LOGGER.info("Start getting unsolved problems.");
@@ -39,13 +43,9 @@ public class DbServiceImpl implements DbService {
         return DAO.readAllLocations();
     }
 
-    public Integer createSolution(SolutionEntity solution) throws SQLException {
+    public void createSolution(List<SolutionEntity> solutions) throws SQLException {
         LOGGER.info("Start creating solution.");
-        return DAO.createSolutions(solution);
+        DAO.createSolutions(solutions);
     }
 
-    public void closeConnection() {
-        LOGGER.info("Close connection");
-        DAO.closeConnection();
-    }
 }

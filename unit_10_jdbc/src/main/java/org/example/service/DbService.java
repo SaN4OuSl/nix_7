@@ -18,5 +18,5 @@ public interface DbService {
 
     List<LocationEntity> readAllLocations() throws SQLException;
 
-    Integer createSolution(SolutionEntity solution) throws SQLException;
+    void createSolution(List<SolutionEntity> solutions) throws SQLException;
 }

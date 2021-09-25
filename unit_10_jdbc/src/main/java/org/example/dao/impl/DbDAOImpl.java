@@ -16,7 +16,7 @@ import java.util.Properties;
 
 public class DbDAOImpl implements DbDAO {
 
-    private Connection connection;
+    private final Connection connection;
 
     public DbDAOImpl() {
         Properties properties = loadProperties();
@@ -26,7 +26,7 @@ public class DbDAOImpl implements DbDAO {
         try {
             connection = DriverManager.getConnection(url, user, pass);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -114,21 +114,23 @@ public class DbDAOImpl implements DbDAO {
         }
     }
 
-    public Integer createSolutions(SolutionEntity solution) {
+    public void createSolutions(List<SolutionEntity> solutions) {
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO solutions (problem_id,cost) values(?,?)")) {
-            statement.setInt(1, solution.getProblem_id());
-            statement.setInt(2, solution.getCost());
-            return statement.executeUpdate();
+            connection.setAutoCommit(false);
+            for (int i=0; i<solutions.size(); i++) {
+                statement.setInt(1, solutions.get(i).getProblem_id());
+                statement.setInt(2, solutions.get(i).getCost());
+                statement.addBatch();
+            }
+            statement.executeBatch();
+            connection.commit();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void closeConnection() {
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public void close() throws SQLException {
+        connection.close();
     }
 }
