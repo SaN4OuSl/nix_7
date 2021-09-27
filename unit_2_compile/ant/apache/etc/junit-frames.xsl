@@ -446,7 +446,7 @@ h6 {
 </xsl:template>
 
   <!--
-   Write properties into a JavaScript data structure.
+   Write properties into a JavaScript entity structure.
    This is based on the original idea by Erik Hatcher (ehatcher@apache.org)
    -->
   <xsl:template match="properties">

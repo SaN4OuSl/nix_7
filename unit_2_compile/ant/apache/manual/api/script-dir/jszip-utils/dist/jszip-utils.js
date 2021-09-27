@@ -51,12 +51,12 @@ var createXHR = window.ActiveXObject ?
 
 JSZipUtils.getBinaryContent = function(path, callback) {
     /*
-     * Here is the tricky part : getting the data.
+     * Here is the tricky part : getting the entity.
      * In firefox/chrome/opera/... setting the mimeType to 'text/plain; charset=x-user-defined'
      * is enough, the result is in the standard xhr.responseText.
      * cf https://developer.mozilla.org/En/XMLHttpRequest/Using_XMLHttpRequest#Receiving_binary_data_in_older_browsers
      * In IE <= 9, we must use (the IE only) attribute responseBody
-     * (for binary data, its content is different from responseText).
+     * (for binary entity, its content is different from responseText).
      * In IE 10, the 'charset=x-user-defined' trick doesn't work, only the
      * responseType will work :
      * http://msdn.microsoft.com/en-us/library/ie/hh673569%28v=vs.85%29.aspx#Binary_Object_upload_and_download

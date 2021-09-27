@@ -30,10 +30,10 @@
 
 
     <!--
-    Matches the root element of the data and starts the generation.
+    Matches the root element of the entity and starts the generation.
     -->
     <xsl:template match="checkstyle">
-        <!-- create the sorted.html with the data -->
+        <!-- create the sorted.html with the entity -->
         <redirect:write file="{$output.dir}/sorted.html">
             <xsl:call-template name="sorted.html"/>
         </redirect:write>
@@ -43,7 +43,7 @@
             <xsl:call-template name="sorted.css"/>
         </redirect:write>
 
-        <!-- create the switch.js for collepsing the data -->
+        <!-- create the switch.js for collepsing the entity -->
         <redirect:write file="{$output.dir}/switch.js">
             <xsl:call-template name="switch.js"/>
         </redirect:write>
@@ -52,7 +52,7 @@
 
 
     <!--
-    Generates the HTML page with the data.
+    Generates the HTML page with the entity.
     -->
     <xsl:template name="sorted.html">
         <html>
@@ -105,7 +105,7 @@
 
 
     <!--
-    Generates the data part.
+    Generates the entity part.
     --> 
     <xsl:template match="checkstyle" mode="data">
         <div id="content">
@@ -154,7 +154,7 @@
 
 
     <!--
-    Generates the data rows for the current check module.
+    Generates the entity rows for the current check module.
     Ignores errors in the current file from other modules.
     @param node the file with the errors
     @param filter full qualified module name 

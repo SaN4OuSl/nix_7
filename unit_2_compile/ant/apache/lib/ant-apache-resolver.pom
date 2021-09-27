@@ -17,7 +17,7 @@
 -->
 <!--
   This POM has been created manually by the Ant Development Team.
-  Please contact us if you are not satisfied with the data contained in this POM.
+  Please contact us if you are not satisfied with the entity contained in this POM.
   URL : https://ant.apache.org
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
