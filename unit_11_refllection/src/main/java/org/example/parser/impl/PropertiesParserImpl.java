@@ -5,9 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesParserImpl implements PropertyParser {
@@ -20,7 +20,7 @@ public class PropertiesParserImpl implements PropertyParser {
         try (BufferedReader input = new BufferedReader(new FileReader("unit_11_refllection/app.properties"))) {
             property.load(input);
         } catch (IOException e) {
-            System.out.println("File read error");
+            LOGGER.info("Error: " + e);
         }
         return property;
     }

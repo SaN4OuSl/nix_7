@@ -45,7 +45,6 @@ public class PropertiesMapperImpl implements PropertyMapper {
                             field.set(obj, format.parse(getValueFromProperty));
                         } catch (ParseException e) {
                             LOGGER.info("Error: " + e);
-                            System.err.println(e.getMessage());
                         }
                     } else {
                         field.set(obj, getValueFromProperty);
@@ -54,7 +53,6 @@ public class PropertiesMapperImpl implements PropertyMapper {
             }
         } catch (IllegalAccessException | NumberFormatException | InvocationTargetException | InstantiationException | NoSuchMethodException e) {
             LOGGER.info("Error: " + e);
-            System.err.println(e.getMessage());
         }
         return obj;
     }

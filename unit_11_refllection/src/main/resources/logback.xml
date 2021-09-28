@@ -3,6 +3,12 @@
 
     <property name="ARCHIVED_LOG" value="archived"/>
 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
     <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log.info}</file>
 
@@ -20,6 +26,7 @@
 
     <logger name="info" level="info" additivity="false">
         <appender-ref ref="info"/>
+        <appender-ref ref="STDOUT" />
     </logger>
 
 </configuration>
