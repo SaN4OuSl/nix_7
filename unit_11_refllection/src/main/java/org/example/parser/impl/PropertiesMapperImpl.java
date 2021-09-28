@@ -12,13 +12,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Properties;
 
 public class PropertiesMapperImpl implements PropertyMapper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("info");
     private static final DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-    public <T> T parse(Class<T> entityClass) {
+    public <T> T map(Class<T> entityClass, Properties properties) {
         LOGGER.info("Start parsing object");
         T obj = null;
         try {
@@ -26,8 +27,8 @@ public class PropertiesMapperImpl implements PropertyMapper {
             for (Field field : obj.getClass().getFields()) {
 
                 if (field.isAnnotationPresent(PropertyKey.class)) {
-                    PropertyKey property = field.getAnnotation(PropertyKey.class);
-                    String getValueFromProperty = new PropertiesParserImpl().getProperty(property.value());
+                    PropertyKey propertyKey = field.getAnnotation(PropertyKey.class);
+                    String getValueFromProperty = properties.getProperty(propertyKey.value());
 
                     if (field.getType().equals(Integer.TYPE)) {
                         field.set(obj, Integer.parseInt(getValueFromProperty));

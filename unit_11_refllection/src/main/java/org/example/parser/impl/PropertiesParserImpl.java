@@ -7,23 +7,21 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesParserImpl implements PropertyParser {
     private static final Logger LOGGER = LoggerFactory.getLogger("info");
 
-    public String getProperty(String property) {
+    public Properties getProperty() {
 
         LOGGER.info("Start get properties");
-        Properties properties = new Properties();
-
+        Properties property = new Properties();
         try (BufferedReader input = new BufferedReader(new FileReader("unit_11_refllection/app.properties"))) {
-            properties.load(input);
-        } catch (IOException | NullPointerException e) {
-            LOGGER.info("Error: " + e);
-            throw new RuntimeException(e);
+            property.load(input);
+        } catch (IOException e) {
+            System.out.println("File read error");
         }
-
-        return properties.getProperty(property);
+        return property;
     }
 }

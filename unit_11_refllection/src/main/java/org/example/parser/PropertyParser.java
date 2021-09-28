@@ -1,5 +1,7 @@
 package org.example.parser;
 
+import java.util.Properties;
+
 public interface PropertyParser {
-    String getProperty(String property);
+    Properties getProperty();
 }

@@ -1,13 +1,14 @@
 package org.example;
 
 import org.example.parser.impl.PropertiesMapperImpl;
+import org.example.parser.impl.PropertiesParserImpl;
 import org.example.properties.AppProperties;
 
 public class Unit11Main {
 
     public static void main(String[] args) {
 
-        AppProperties appProperties = new PropertiesMapperImpl().parse(AppProperties.class);
+        AppProperties appProperties = new PropertiesMapperImpl().map(AppProperties.class, new PropertiesParserImpl().getProperty());
 
         System.out.println("Amount of connections = " + appProperties.amountConnections);
         System.out.println("Max number of connections = " + appProperties.maxConnections);
