@@ -19,6 +19,8 @@
         <module>unit_9_ionio</module>
         <module>module_2</module>
         <module>unit_10_jdbc</module>
+        <module>unit_11_refllection</module>
+        <module>unit_12_csv_mapper</module>
     </modules>
 
 </project>
