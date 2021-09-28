@@ -3,5 +3,5 @@ package org.example.parser;
 import java.util.Properties;
 
 public interface PropertyParser {
-    Properties getProperty();
+    Properties getProperty(String filePath);
 }
