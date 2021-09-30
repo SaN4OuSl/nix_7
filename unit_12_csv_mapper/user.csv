@@ -1,0 +1,4 @@
+id,first_name,last_name,birth_day,is_available
+1,Alex,Laptev,2003-07-28,true
+2,Vlad,Kosog,2000-01-01,true
+3,Vasya,Pupkin,1990-12-21,false
