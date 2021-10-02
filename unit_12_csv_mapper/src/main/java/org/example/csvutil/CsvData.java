@@ -3,6 +3,7 @@ package org.example.csvutil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,10 +11,10 @@ public class CsvData {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CsvData.class);
 
-    private final HashMap<Integer, String[]> data;
+    private final List<String[]> data;
 
     public CsvData() {
-        this.data = new HashMap<>();
+        this.data = new ArrayList<>();
     }
 
     public int size() {
@@ -36,7 +37,7 @@ public class CsvData {
         return this.data.get(0);
     }
 
-    public void add(Integer i, String[] row) {
-        this.data.put(i, row);
+    public void add(String[] row) {
+        this.data.add(row);
     }
 }
