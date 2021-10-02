@@ -15,9 +15,13 @@ public class CsvData {
     private final List<String[]> data;
     private final Map<String, Integer> header;
 
-    public CsvData() {
+    public CsvData(List<String[]> rows) {
         this.data = new ArrayList<>();
         this.header = new HashMap<>();
+        this.data.addAll(rows);
+        for (int i = 0; i < data.get(0).length; i++) {
+            header.put(data.get(0)[i], i);
+        }
     }
 
     public int size() {
@@ -29,9 +33,6 @@ public class CsvData {
     }
 
     public String get(int row, String h) {
-        for (int i = 0; i < data.get(0).length; i++) {
-            header.put(data.get(0)[i], i);
-        }
         int col = header.get(h);
         if (col == -1) {
             LOGGER.error("No annotated field with this name!");

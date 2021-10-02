@@ -68,7 +68,7 @@ public class CsvController {
                     try {
                         System.out.println(data.get(Integer.parseInt(row), Integer.parseInt(col)));
                     } catch (RuntimeException e) {
-                        LOGGER.error("Input error: " + e);
+                        LOGGER.error("Input error: ", e);
                     }
                     break;
                 case "3":
@@ -79,7 +79,7 @@ public class CsvController {
                     try {
                         System.out.println(data.get(Integer.parseInt(row), col));
                     } catch (RuntimeException e) {
-                        LOGGER.error("Input error: " + e);
+                        LOGGER.error("Input error: ", e);
                     }
                     break;
                 case "4":

@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CsvParserImpl implements CsvParser {
@@ -13,14 +15,12 @@ public class CsvParserImpl implements CsvParser {
 
     public CsvData parse(BufferedReader stream) {
         LOGGER.info("Start parsing csv");
-        Scanner scanner;
-        CsvData res = new CsvData();
-
-        scanner = new Scanner(stream);
+        List<String[]> rows = new ArrayList<>();
+        Scanner scanner = new Scanner(stream);
         while (scanner.hasNext()) {
-            res.add(scanner.nextLine().split(","));
+            rows.add(scanner.nextLine().split(","));
         }
 
-        return res;
+        return new CsvData(rows);
     }
 }
