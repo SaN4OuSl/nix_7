@@ -1,8 +1,8 @@
 package org.example.controller;
 
 import org.example.csvutil.CsvData;
-import org.example.csvutil.CsvMapper;
-import org.example.csvutil.CsvParser;
+import org.example.csvutil.impl.CsvMapperImpl;
+import org.example.csvutil.impl.CsvParserImpl;
 import org.example.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +17,25 @@ import java.util.Scanner;
 public class CsvController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CsvController.class);
+    private static final CsvMapperImpl CSV_MAPPER = new CsvMapperImpl();
+    private static final CsvParserImpl CSV_PARSER = new CsvParserImpl();
+    private static CsvController instance = null;
 
-    public static void run(String fileName) {
+    public static CsvController getInstance() {
+        if (instance == null) {
+            instance = new CsvController();
+        }
+        return instance;
+    }
+
+    public void run(String fileName) {
         Scanner in = new Scanner(System.in);
 
         CsvData data;
         try (BufferedReader input = new BufferedReader(new FileReader(fileName))) {
-            data = CsvParser.parse(input);
+            data = CSV_PARSER.parse(input);
         } catch (IOException e) {
-            LOGGER.error("Error: " + e);
+            LOGGER.error("Error: ", e);
             throw new RuntimeException(e);
         }
 
@@ -43,7 +53,7 @@ public class CsvController {
 
             switch (userChoice) {
                 case "1":
-                    List<User> users = CsvMapper.map(User.class, data);
+                    List<User> users = CSV_MAPPER.map(User.class, data);
                     for (User user : users) {
                         System.out.println(user.toString());
                     }

@@ -2,7 +2,7 @@ package org.example.entity;
 
 import org.example.annotations.CsvCell;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class User {
     @CsvCell(value = "id")
@@ -15,7 +15,7 @@ public class User {
     private String lastName;
 
     @CsvCell(value = "birth_day")
-    private Date birthDay;
+    private LocalDateTime birthDay;
 
     @CsvCell(value = "is_available")
     private Boolean isAvailable;
