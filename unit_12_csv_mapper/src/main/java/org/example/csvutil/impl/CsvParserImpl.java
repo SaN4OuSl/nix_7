@@ -17,10 +17,8 @@ public class CsvParserImpl implements CsvParser {
         CsvData res = new CsvData();
 
         scanner = new Scanner(stream);
-        int i = 0;
         while (scanner.hasNext()) {
             res.add(scanner.nextLine().split(","));
-            i++;
         }
 
         return res;

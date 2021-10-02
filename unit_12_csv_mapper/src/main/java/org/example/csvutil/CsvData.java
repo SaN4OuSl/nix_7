@@ -6,15 +6,18 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CsvData {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CsvData.class);
 
     private final List<String[]> data;
+    private final Map<String, Integer> header;
 
     public CsvData() {
         this.data = new ArrayList<>();
+        this.header = new HashMap<>();
     }
 
     public int size() {
@@ -26,7 +29,10 @@ public class CsvData {
     }
 
     public String get(int row, String h) {
-        int col = List.of(this.data.get(0)).indexOf(h);
+        for (int i = 0; i < data.get(0).length; i++) {
+            header.put(data.get(0)[i], i);
+        }
+        int col = header.get(h);
         if (col == -1) {
             LOGGER.error("No annotated field with this name!");
         }

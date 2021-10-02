@@ -1,6 +1,8 @@
 package org.example.controller;
 
 import org.example.csvutil.CsvData;
+import org.example.csvutil.CsvMapper;
+import org.example.csvutil.CsvParser;
 import org.example.csvutil.impl.CsvMapperImpl;
 import org.example.csvutil.impl.CsvParserImpl;
 import org.example.entity.User;
@@ -17,8 +19,8 @@ import java.util.Scanner;
 public class CsvController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CsvController.class);
-    private static final CsvMapperImpl CSV_MAPPER = new CsvMapperImpl();
-    private static final CsvParserImpl CSV_PARSER = new CsvParserImpl();
+    private static final CsvMapper CSV_MAPPER = new CsvMapperImpl();
+    private static final CsvParser CSV_PARSER = new CsvParserImpl();
     private static CsvController instance = null;
 
     public static CsvController getInstance() {
