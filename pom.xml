@@ -21,6 +21,7 @@
         <module>unit_10_jdbc</module>
         <module>unit_11_refllection</module>
         <module>unit_12_csv_mapper</module>
+        <module>unit_13_jpa_hibernate</module>
     </modules>
 
 </project>
