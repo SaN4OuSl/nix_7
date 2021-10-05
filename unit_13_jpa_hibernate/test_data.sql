@@ -14,7 +14,7 @@
     INSERT INTO unit_13_db.students (id, age, firstName, secondName, group_id) VALUES (3, 21, 'Vasya', 'Pupkin', 1);
 
     INSERT INTO unit_13_db.teachers (id, age, firstName, secondName) VALUES (1, 30, 'Iegor', 'Fentusov');
-    INSERT INTO unit_13_db.teachers (id, age, firstName, secondName) VALUES (2, 25, 'Mikhail', 'Aspect');
+    INSERT INTO unit_13_db.teachers (id, age, firstName, secondName) VALUES (2, 25, 'Mikhail', 'Gorbunov');
 
     INSERT INTO unit_13_db.topics (id, title) VALUES (1, 'unit 11 reflection');
     INSERT INTO unit_13_db.topics (id, title) VALUES (2, 'unit 12 csv mapping');

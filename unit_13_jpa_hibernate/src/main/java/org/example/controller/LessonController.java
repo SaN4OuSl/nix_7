@@ -65,8 +65,8 @@ public class LessonController {
             Teacher teacher = session.find(Teacher.class, lesson.getTeacher().getId());
             Topic topic = session.find(Topic.class, lesson.getTopic().getId());
             course = session.find(Course.class, lesson.getCourse().getId());
-            LOGGER.info("Earliest lesson: " + strDate + "; teacher: " + teacher.getFirstName() + " " +
-                    teacher.getSecondName() + "; topic: " + topic.getTitle() + "; course: " + course.getTitle());
+            System.out.println("Earliest lesson: " + strDate + "\nTeacher: " + teacher.getFirstName() + " " +
+                    teacher.getSecondName() + "\nTopic: " + topic.getTitle() + "\nCourse: " + course.getTitle());
 
             session.getTransaction().commit();
         } catch (Exception e) {

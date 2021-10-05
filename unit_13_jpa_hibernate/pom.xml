@@ -15,7 +15,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.shade.plugin.version>3.2.0</maven.shade.plugin.version>
-        <logs.folder>unit_12_csv_mapper/logs</logs.folder>
+        <logs.folder>unit_13_jpa_hibernate/logs</logs.folder>
         <logs.life.folder>life_logs</logs.life.folder>
     </properties>
 
