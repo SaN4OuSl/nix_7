@@ -20,9 +20,4 @@ public class Student extends BaseEntity{
     public Groups getGroup() {
         return group;
     }
-
-    public void setGroup(Groups group) {
-        this.group = group;
-    }
-
 }
