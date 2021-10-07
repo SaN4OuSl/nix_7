@@ -17,7 +17,7 @@ public class Course extends BaseEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Groups> groups;
 
-    @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
     private List<Lesson> lessons;
 
     public Course() {
@@ -25,7 +25,11 @@ public class Course extends BaseEntity {
         lessons = new ArrayList<>();
     }
 
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public List<Lesson> getLessons() { return lessons; }
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
 }

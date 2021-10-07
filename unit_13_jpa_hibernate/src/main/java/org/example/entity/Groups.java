@@ -6,16 +6,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "groups_of_course")
-public class Groups extends BaseEntity{
+public class Groups extends BaseEntity {
 
-    @OneToMany(mappedBy = "group",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Student> students;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 
-    public Groups(){
+    public Groups() {
         students = new ArrayList<>();
     }
 

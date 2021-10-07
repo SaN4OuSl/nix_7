@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "teachers")
-public class Teacher extends BaseEntity{
+public class Teacher extends BaseEntity {
 
     @Column(nullable = false)
     private String firstName;
@@ -21,7 +21,7 @@ public class Teacher extends BaseEntity{
     @OneToMany(mappedBy = "teacher")
     private List<Lesson> lessons;
 
-    public Teacher(){
+    public Teacher() {
         lessons = new ArrayList<>();
     }
 

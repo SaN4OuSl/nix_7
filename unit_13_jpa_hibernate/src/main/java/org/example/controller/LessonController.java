@@ -28,25 +28,6 @@ public class LessonController {
         return instance;
     }
 
-    public void run() {
-        Configuration configuration = new Configuration().configure();
-
-        try (SessionFactory sessionFactory = configuration.buildSessionFactory();
-             Session session = sessionFactory.openSession()) {
-            boolean isRun = true;
-            while (isRun) {
-                System.out.println("Enter student id, for exit enter -1");
-                long studentId = in.nextLong();
-                if (studentId != -1) {
-                    LOGGER.info("Find earliest lesson");
-                    defineEarliestStudentLesson(studentId, session);
-                } else {
-                    isRun = false;
-                }
-            }
-        }
-    }
-
     private static void defineEarliestStudentLesson(Long id, Session session) {
         try {
             session.getTransaction().begin();
@@ -72,6 +53,25 @@ public class LessonController {
         } catch (Exception e) {
             session.getTransaction().rollback();
             LOGGER.error("Error: ", e);
+        }
+    }
+
+    public void run() {
+        Configuration configuration = new Configuration().configure();
+
+        try (SessionFactory sessionFactory = configuration.buildSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            boolean isRun = true;
+            while (isRun) {
+                System.out.println("Enter student id, for exit enter -1");
+                long studentId = in.nextLong();
+                if (studentId != -1) {
+                    LOGGER.info("Find earliest lesson");
+                    defineEarliestStudentLesson(studentId, session);
+                } else {
+                    isRun = false;
+                }
+            }
         }
     }
 }
