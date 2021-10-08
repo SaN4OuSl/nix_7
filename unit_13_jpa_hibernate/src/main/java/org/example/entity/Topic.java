@@ -1,28 +1,25 @@
 package org.example.entity;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "topics")
 public class Topic extends BaseEntity {
 
-    @NaturalId
     @Column(nullable = false)
-    private String title;
+    private String name;
 
-    @OneToMany(mappedBy = "topic", fetch = FetchType.LAZY)
-    private List<Lesson> lessons;
+    @ManyToMany(mappedBy = "topics")
+    private Set<Course> courses = new HashSet<>();
 
-    public Topic() {
-        lessons = new ArrayList<>();
+    @OneToMany(mappedBy = "topic")
+    private List<Lesson> lessons = new ArrayList<>();
+
+    public String getName() {
+        return name;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
 }

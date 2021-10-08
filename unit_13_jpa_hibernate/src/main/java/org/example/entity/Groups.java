@@ -5,21 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "groups_of_course")
+@Table(name = "course_groups")
 public class Groups extends BaseEntity {
 
-    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Student> students;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
 
-    public Groups() {
-        students = new ArrayList<>();
-    }
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    private List<Student> students = new ArrayList<>();
 
-    public Course getCourse() {
-        return course;
+    public String getName() {
+        return name;
     }
 }

@@ -12,25 +12,12 @@ import java.util.List;
 public class Teacher extends BaseEntity {
 
     @Column(nullable = false)
-    private String firstName;
-    @Column(nullable = false)
-    private String secondName;
-    @Column(nullable = false)
-    private Integer age;
+    private String name;
 
     @OneToMany(mappedBy = "teacher")
-    private List<Lesson> lessons;
+    private List<Lesson> lessons = new ArrayList<>();
 
-    public Teacher() {
-        lessons = new ArrayList<>();
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
+    public String getName() {
+        return name;
     }
 }
-

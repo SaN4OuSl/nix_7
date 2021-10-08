@@ -7,17 +7,13 @@ import javax.persistence.*;
 public class Student extends BaseEntity {
 
     @Column(nullable = false)
-    private String firstName;
-    @Column(nullable = false)
-    private String secondName;
-    @Column(nullable = false)
-    private Integer age;
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Groups group;
 
-    public Groups getGroup() {
-        return group;
+    public String getName() {
+        return name;
     }
 }

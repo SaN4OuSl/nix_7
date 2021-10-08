@@ -1,40 +1,46 @@
 package org.example.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "lessons")
 public class Lesson extends BaseEntity {
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "topic_id")
-    private Topic topic;
+    @Column(name = "starts_at", nullable = false)
+    private Timestamp startsAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @Column(name = "ends_at", nullable = false)
+    private Timestamp endsAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    public LocalDateTime getDate() {
-        return date;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "topic_id", nullable = false)
+    private Topic topic;
+
+    public String getName() {
+        return name;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Timestamp getStartsAt() {
+        return startsAt;
     }
 
-    public Course getCourse() {
-        return course;
+    public Timestamp getEndsAt() {
+        return endsAt;
     }
 
     public Teacher getTeacher() {
         return teacher;
+    }
+
+    public Topic getTopic() {
+        return topic;
     }
 }
