@@ -11,6 +11,8 @@ import org.example.service.impl.ConnectionsServiceImpl;
 import org.example.service.impl.OperationsControlServiceImpl;
 import org.example.service.impl.ExportDataToCsvServiceImpl;
 import org.hibernate.HibernateException;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,12 +30,17 @@ public class MainController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
     private final Scanner in = new Scanner(System.in);
     private final ConnectionsServiceImpl connectionsService;
-
+    private final EntityManager entityManager;
     public MainController(String username, String password) {
         connectionsService = new ConnectionsServiceImpl(new ConnectionsDaoImpl(username, password));
+
+        SessionFactory sessionFactory = new Configuration().
+                setProperty("hibernate.connection.username", username).
+                setProperty("hibernate.connection.password", password).configure().buildSessionFactory();
+        entityManager = sessionFactory.createEntityManager();
     }
 
-    public void createOperation(EntityManager entityManager, String usersTelephone) {
+    public void createOperation(String usersTelephone) {
         OperationsControlService operationsControlService = new OperationsControlServiceImpl(entityManager);
         User user = operationsControlService.getUserByPhoneNumber(usersTelephone);
 
@@ -78,7 +85,7 @@ public class MainController {
         }
     }
 
-    public void exportData(EntityManager entityManager, String usersTelephone, String filePath) {
+    public void exportData(String usersTelephone, String filePath) {
         OperationsControlService operationsControlService = new OperationsControlServiceImpl(entityManager);
         User user = operationsControlService.getUserByPhoneNumber(usersTelephone);
 
