@@ -179,11 +179,11 @@ public class MainController implements AutoCloseable {
     }
 
     @Override
-    public void close() throws HibernateException {
-        sessionFactory.close();
+    public void close() {
         try {
+            sessionFactory.close();
             connectionsService.close();
-        } catch (SQLException e) {
+        } catch (SQLException | HibernateException e) {
             LOGGER.error("Error: ", e);
         }
     }
