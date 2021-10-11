@@ -2,14 +2,14 @@ package org.example.controller;
 
 import org.example.dao.impl.ConnectionsDaoImpl;
 import org.example.entity.Accounts;
-import org.example.entity.Operations;
 import org.example.entity.OperationCategories;
+import org.example.entity.Operations;
 import org.example.entity.User;
-import org.example.service.OperationsControlService;
 import org.example.service.ExportDataToCsvService;
+import org.example.service.OperationsControlService;
 import org.example.service.impl.ConnectionsServiceImpl;
-import org.example.service.impl.OperationsControlServiceImpl;
 import org.example.service.impl.ExportDataToCsvServiceImpl;
+import org.example.service.impl.OperationsControlServiceImpl;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -25,16 +25,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MainController {
+public class MainController implements AutoCloseable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
     private final Scanner in = new Scanner(System.in);
     private final ConnectionsServiceImpl connectionsService;
     private final EntityManager entityManager;
+    private final SessionFactory sessionFactory;
+
     public MainController(String username, String password) {
         connectionsService = new ConnectionsServiceImpl(new ConnectionsDaoImpl(username, password));
 
-        SessionFactory sessionFactory = new Configuration().
+        sessionFactory = new Configuration().
                 setProperty("hibernate.connection.username", username).
                 setProperty("hibernate.connection.password", password).configure().buildSessionFactory();
         entityManager = sessionFactory.createEntityManager();
@@ -166,5 +168,10 @@ public class MainController {
             System.out.println(user.getAccounts().get(i).getId() + "| " + user.getFirstName() + "| " + user.getSecondName()
                     + "| " + user.getAccounts().get(i).getBalance());
         }
+    }
+
+    @Override
+    public void close() throws HibernateException {
+        sessionFactory.close();
     }
 }
