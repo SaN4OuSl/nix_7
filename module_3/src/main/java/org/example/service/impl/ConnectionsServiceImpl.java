@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ConnectionsServiceImpl implements ConnectionsService {
 
@@ -21,5 +22,10 @@ public class ConnectionsServiceImpl implements ConnectionsService {
     public Connection getConnection() {
         LOGGER.info("Start get connection");
         return connectionsDao.getConnection();
+    }
+
+    @Override
+    public void close() throws SQLException {
+        connectionsDao.close();
     }
 }

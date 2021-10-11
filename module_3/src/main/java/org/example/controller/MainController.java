@@ -100,8 +100,8 @@ public class MainController implements AutoCloseable {
         String j = in.nextLine();
 
         try (Connection connection = connectionsService.getConnection()) {
+            entityManager.getTransaction().begin();
             ExportDataToCsvService exportDataToCsvService;
-
             printUsersAccounts(user);
             String accountId = in.nextLine();
 
@@ -114,6 +114,7 @@ public class MainController implements AutoCloseable {
                             LocalDateTime.of(0, 1, 1, 0, 0),
                             LocalDateTime.now(),
                             filePath);
+                    entityManager.getTransaction().commit();
                     break;
                 case "2":
                     exportDataToCsvService = new ExportDataToCsvServiceImpl(connection);
@@ -123,6 +124,7 @@ public class MainController implements AutoCloseable {
                             LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0),
                             LocalDateTime.now(),
                             filePath);
+                    entityManager.getTransaction().commit();
                     break;
                 case "3":
                     exportDataToCsvService = new ExportDataToCsvServiceImpl(connection);
@@ -132,6 +134,7 @@ public class MainController implements AutoCloseable {
                             LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), 1, 0, 0),
                             LocalDateTime.now(),
                             filePath);
+                    entityManager.getTransaction().commit();
                     break;
                 case "4":
                     exportDataToCsvService = new ExportDataToCsvServiceImpl(connection);
@@ -141,6 +144,7 @@ public class MainController implements AutoCloseable {
                             LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 0, 0),
                             LocalDateTime.now(),
                             filePath);
+                    entityManager.getTransaction().commit();
                     break;
                 default:
                     LOGGER.warn("Incorrect index, export data for all time");
@@ -151,12 +155,16 @@ public class MainController implements AutoCloseable {
                             LocalDateTime.of(LocalDateTime.now().getYear(), LocalDateTime.now().getMonth(), LocalDateTime.now().getDayOfMonth(), 0, 0),
                             LocalDateTime.now(),
                             filePath);
+                    entityManager.getTransaction().commit();
+                    break;
 
             }
         } catch (NumberFormatException e) {
             LOGGER.error("Error: ", e);
+            entityManager.getTransaction().rollback();
         } catch (SQLException e) {
             LOGGER.error("Error: ", e);
+            entityManager.getTransaction().rollback();
             throw new RuntimeException("Error with connection");
         }
     }
@@ -173,5 +181,10 @@ public class MainController implements AutoCloseable {
     @Override
     public void close() throws HibernateException {
         sessionFactory.close();
+        try {
+            connectionsService.close();
+        } catch (SQLException e) {
+            LOGGER.error("Error: ", e);
+        }
     }
 }
