@@ -28,9 +28,9 @@ public class Unit14Main {
         secondThread.start();
         secondThread.join();
 
-        System.out.println("First thread: " + firstPartOfList.getCountOfNaturalNumbers());
-        System.out.println("Second thread: " + secondPartOfList.getCountOfNaturalNumbers());
-        int sum = firstPartOfList.getCountOfNaturalNumbers() + secondPartOfList.getCountOfNaturalNumbers();
+        System.out.println("First thread: " + firstPartOfList.getCountOfPrimeNumbers());
+        System.out.println("Second thread: " + secondPartOfList.getCountOfPrimeNumbers());
+        int sum = firstPartOfList.getCountOfPrimeNumbers() + secondPartOfList.getCountOfPrimeNumbers();
         System.out.println("All: " + sum);
     }
 }

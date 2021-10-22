@@ -5,7 +5,7 @@ import java.util.List;
 public class PrimeNumberChecker extends Thread {
 
     private final List<Integer> listOfNumbers;
-    private int countOfNaturalNumbers = 0;
+    private int countOfPrimeNumbers = 0;
 
     public PrimeNumberChecker(List<Integer> numbers) {
         this.listOfNumbers = numbers;
@@ -15,13 +15,13 @@ public class PrimeNumberChecker extends Thread {
     public void run() {
         for (int number : listOfNumbers) {
             if (checkIsItPrimeNumber(number)) {
-                countOfNaturalNumbers++;
+                countOfPrimeNumbers++;
             }
         }
     }
 
-    public int getCountOfNaturalNumbers(){
-        return countOfNaturalNumbers;
+    public int getCountOfPrimeNumbers(){
+        return countOfPrimeNumbers;
     }
 
     private boolean checkIsItPrimeNumber(Integer number) {
