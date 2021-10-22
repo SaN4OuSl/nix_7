@@ -8,16 +8,16 @@ public class PrintHelloFromThread extends Thread {
 
     @Override
     public void run() {
-        int number = Integer.parseInt(this.getName());
-        if (number <= 49) {
-            PrintHelloFromThread printHelloFromThread = new PrintHelloFromThread(number + 1);
+        int numberOfThread = Integer.parseInt(this.getName());
+        if (numberOfThread <= 49) {
+            PrintHelloFromThread printHelloFromThread = new PrintHelloFromThread(numberOfThread + 1);
             printHelloFromThread.start();
             try {
                 printHelloFromThread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Hello from thread #" + number);
+            System.out.println("Hello from thread #" + numberOfThread);
         }
     }
 }
