@@ -1,23 +1,30 @@
 package org.example;
 
-public class PrintHelloFromThread extends Thread {
+import java.util.ArrayList;
+import java.util.List;
 
-    PrintHelloFromThread(Integer numberOfThread) {
-        super(String.valueOf(numberOfThread));
-    }
-
+public class PrintHelloFromThread implements Runnable {
+    
     @Override
     public void run() {
-        int numberOfThread = Integer.parseInt(this.getName());
-        if (numberOfThread <= 49) {
-            PrintHelloFromThread printHelloFromThread = new PrintHelloFromThread(numberOfThread + 1);
-            printHelloFromThread.start();
+        System.out.println("Hello from thread #" + Thread.currentThread().getName());
+    }
+    
+    public void startMethod() {
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 49; i >= 0; i--) {
+            Thread t = new Thread(new PrintHelloFromThread());
+            t.setName(String.valueOf(i));
+            threads.add(t);
+        }
+        
+        for (Thread t : threads) {
+            t.start();
             try {
-                printHelloFromThread.join();
+                t.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Hello from thread #" + numberOfThread);
         }
     }
 }

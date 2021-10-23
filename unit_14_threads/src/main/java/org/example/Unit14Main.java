@@ -9,9 +9,8 @@ public class Unit14Main {
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("First task");
-        PrintHelloFromThread printHelloFromThread = new PrintHelloFromThread(0);
-        printHelloFromThread.start();
-        printHelloFromThread.join();
+        PrintHelloFromThread printHelloFromThread = new PrintHelloFromThread();
+        printHelloFromThread.startMethod();
 
         System.out.println("\nSecond task");
         List<Integer> listOfNumbers = Stream.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9).collect(Collectors.toList());
